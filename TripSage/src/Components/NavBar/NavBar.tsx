@@ -1,7 +1,11 @@
 import "../../app.scss";
 
 function NavBar() {
-  return <></>;
+  return (
+    <>
+      <h1>Hola</h1>
+    </>
+  );
 }
 
 export default NavBar;
