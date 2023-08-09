@@ -10,6 +10,7 @@ const App: React.FC = () => {
     <>
       <BrowserRouter>
         <NavBar />
+        {/* <img src="./TripSage/src/styles/img/carousel/Londres.jpg" alt="Imagen"/> */}
         <CarouselSlider/>
       </BrowserRouter>
     </>
