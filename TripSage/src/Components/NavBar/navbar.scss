@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container-todo {
+  width: 100%;
+  margin: auto;
+  background: blue;
+  display: flex;
+
+  .container-seccion {
+    list-style: none;
+    display: flex;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .container-button {
+    .button {
+      display: flex;
+    }
+  }
+}

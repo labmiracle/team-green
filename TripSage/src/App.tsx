@@ -1,20 +1,26 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./Components/NavBar/NavBar";
-import React from 'react';
-import CarouselSlider from './Components/SliderHome/CarouselSlider';
+import React from "react";
+import Fly from "./Components/Fly/Fly";
+import Hotel from "./Components/Hotel/Hotel";
+import Home from "./Components/Home/Home";
 
+import CarouselSlider from "./Components/SliderHome/CarouselSlider";
 
-
-const App: React.FC = () => { 
+const App: React.FC = () => {
   return (
     <>
       <BrowserRouter>
         <NavBar />
-        {/* <img src="./TripSage/src/styles/img/carousel/Londres.jpg" alt="Imagen"/> */}
-        <CarouselSlider/>
+        <CarouselSlider />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/fly" element={<Fly />} />
+          <Route path="/hotel" element={<Hotel />} />
+        </Routes>
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
