@@ -3,31 +3,43 @@
   padding: 0;
 }
 
-.container-todo {
-  width: 100%;
-  margin: auto;
-  background: blue;
-  display: flex;
+#logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 1500px;
+}
 
-  .container-seccion {
-    list-style: none;
-    display: flex;
+#container-todo {
+  & .container-nav header {
+    background: #d9d9d9;
+    width: 100%;
   }
 
-  ul {
-    list-style: none;
+  .container-seccion {
+    margin: auto;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+    }
   }
 
   img {
-    width: 60px;
-    height: 60px;
+    width: 139px;
+    height: 138px;
   }
-
   .container-button {
+    width: 100%;
+    margin-left: 100%;
+
     .button {
       display: flex;
+      img {
+        width: 91px;
+        height: 69px;
+      }
     }
   }
 }

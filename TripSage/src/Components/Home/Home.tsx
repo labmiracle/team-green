@@ -1,5 +1,11 @@
+import CarouselSlider from "../SliderHome/CarouselSlider";
+
 function Home() {
-  return <div>Home</div>;
+  return (
+    <>
+      <CarouselSlider />
+    </>
+  );
 }
 
 export default Home;
