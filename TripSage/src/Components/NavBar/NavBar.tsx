@@ -1,5 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import "./navbar.scss";
+import { AiOutlineUser } from "react-icons/ai";
 
 function NavBar() {
   return (
@@ -8,10 +9,14 @@ function NavBar() {
         <div className="container-nav">
           <header>
             <div className="container-seccion">
-              <Link to="/">
-                <img src="../../../public/img/Logo.png" alt="Logo" id="logo" />
-              </Link>
               <nav id="navbar">
+                <Link to="/">
+                  <img
+                    src="../../../public/img/Logo.png"
+                    alt="Logo"
+                    id="logo"
+                  />
+                </Link>
                 <ul>
                   <li>
                     <NavLink to="/fly">
@@ -28,8 +33,12 @@ function NavBar() {
 
               <div className="container-button">
                 <div className="button">
-                  <img src="../../../public/img/LogIn.png" />
-                  <button>Log In</button>
+                  <div id="icon">
+                    <button>
+                      <AiOutlineUser />
+                      {"Log In "}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
