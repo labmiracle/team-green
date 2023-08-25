@@ -14,28 +14,28 @@ interface Image {
 
 const images: Image[] = [   
   {
-    url: '/img/carousel/Grecia.jpg',
-    alt: 'Imagen 2',
+    url: '/img/carousel/Grecia.png',
+    alt: 'Grecia',
   },
    {
-    url:'/img/carousel/Londres.jpg',
-    alt: 'Imagen 2',
+    url:'/img/carousel/Londres.png',
+    alt: 'Londres',
   },
   {
-    url: '/img/carousel/NewYork.jpg',
-    alt: 'Imagen 3',
+    url: '/img/carousel/NewYork.png',
+    alt: 'New York',
   },
   {
-    url: '/img/carousel/Paris.jpg',
-    alt: 'Imagen 4',
+    url: '/img/carousel/Paris.png',
+    alt: 'Paris',
   },
   {
-    url: '/img/carousel/Roma.jpg',
-    alt: 'Imagen 5',
+    url: '/img/carousel/Roma.png',
+    alt: 'Roma',
   },
   {
-    url: '/img/carousel/TajMajal.jpg',
-    alt: 'Imagen 6',
+    url: '/img/carousel/TajMajal.png',
+    alt: 'Taj Majal',
   },
   
 ];
