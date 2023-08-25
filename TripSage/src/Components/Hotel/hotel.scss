@@ -1,5 +1,18 @@
+@import "../../styles/Variables.scss";
+
 #container-hotel {
-  .img-hotel {
-    width: 100%;
-  }
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../../../public/img/background/Hotel.png");
+  background-position: center;
+}
+
+.img-hotel {
+  width: 100vw;
+  background-color: blue;
+  display: flex;
+  justify-content: center;
 }

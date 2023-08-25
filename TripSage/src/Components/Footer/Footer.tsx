@@ -17,17 +17,26 @@ const Footer = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="" className="linkedin">
+              <NavLink
+                to="https://www.linkedin.com/in/eugenio-barroso-0a8244218/"
+                className="linkedin"
+              >
                 {FaLinkedin}
               </NavLink>
             </li>
             <li>
-              <NavLink to="" className="linkedin">
+              <NavLink
+                to="https://www.linkedin.com/in/lucasbecerra27"
+                className="linkedin"
+              >
                 {FaLinkedin}
               </NavLink>
             </li>
             <li>
-              <NavLink to="" className="linkedin">
+              <NavLink
+                to="https://www.linkedin.com/in/giovannadipaolo/"
+                className="linkedin"
+              >
                 {FaLinkedin}
               </NavLink>
             </li>
@@ -42,6 +51,9 @@ const Footer = () => {
           <h3>Contact</h3>
           <hr />
           <p>francrema00@gmail.com</p>
+          <p>eugeasc@gmail.com</p>
+          <p>becerralucas40@gmail.com</p>
+          <p>giovannadipaolo39@gmail.com</p>
         </div>
       </div>
     </footer>

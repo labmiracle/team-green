@@ -3,10 +3,11 @@ import "./hotel.scss";
 function Hotel() {
   return (
     <div id="container-hotel">
-      <img
-        src="../../../public/img/background/Hotel.png"
-        className="img-hotel"
-      />
+      <main>
+        <div className="img-hotel">
+          <h2>Hola</h2>
+        </div>
+      </main>
     </div>
   );
 }

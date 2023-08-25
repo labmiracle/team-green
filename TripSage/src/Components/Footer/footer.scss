@@ -1,5 +1,7 @@
+@import "../../styles/Variables.scss";
+
 footer {
-  background: blanchedalmond;
+  background: $gris-palido;
 
   #container-footer {
     display: flex;
@@ -34,9 +36,17 @@ footer {
     .contact {
       margin-right: 8px;
 
+      h3 {
+        font-size: 20px;
+      }
+
       hr {
         height: 2px;
         background: blue;
+      }
+
+      p {
+        font-size: 12px;
       }
     }
   }
