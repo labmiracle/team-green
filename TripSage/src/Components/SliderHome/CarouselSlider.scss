@@ -1,3 +1,5 @@
+@import "../../styles/Variables.scss";
+
 .carousel-slider {
     position: relative;
     width: 100%;
@@ -5,8 +7,6 @@
     
     .thumbnail {
       display: block;
-      max-width: 100%;
-      max-height: 100%;
       margin: 0 auto;
     }
   
@@ -15,7 +15,7 @@
     }
   
     .slick-dots li button:before {
-      font-size: 12px;
+      font-size: 16px;
       color: white;
     }
   
@@ -28,9 +28,11 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-family: 'Raleway', sans-serif;
-      color: black;
-      text-shadow: 2px 2px 4px white;
+      font-family: $primary-font;
+      font-size: 48px;
+      color: rgb(255, 255, 255);
+      text-shadow: 0px 0px 4px rgb(0, 0, 0);
+      letter-spacing: 2px;
       
     }
   }
