@@ -34,10 +34,12 @@ function NavBar() {
               <div className="container-button">
                 <div className="button">
                   <div id="icon">
-                    <button>
-                      <AiOutlineUser />
-                      {"Log In "}
-                    </button>
+                    <Link to={"/logIn"}>
+                      <button>
+                        <AiOutlineUser />
+                        {"Log In "}
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

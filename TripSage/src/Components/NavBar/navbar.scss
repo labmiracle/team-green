@@ -54,13 +54,15 @@
           #icon {
             color: #fff;
             font-size: 40px;
-            display: flex;
+
+            a {
+              display: flex;
+            }
           }
 
           button {
             color: #ffff;
             font-size: 15px;
-            padding: 5px 5px;
             margin-bottom: 5px;
             background-color: #004aad;
             cursor: pointer;

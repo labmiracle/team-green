@@ -10,9 +10,49 @@
   background-position: center;
 }
 
-.img-hotel {
+.container-form-hotel {
   width: 100vw;
   background-color: blue;
   display: flex;
   justify-content: center;
+}
+
+.form-hotel {
+  display: flex;
+  padding: 15px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px;
+
+    p {
+      color: #fff;
+      margin-bottom: 4px;
+      margin-left: 5px;
+    }
+
+    input {
+      background-color: gray;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      width: 150px;
+      height: 25px;
+    }
+  }
+
+  button {
+    color: black;
+    background-color: gray;
+    border: none;
+    display: flex;
+    width: 80px;
+    height: 20px;
+    margin-top: 25px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
 }

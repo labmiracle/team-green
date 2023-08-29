@@ -1,0 +1,65 @@
+#container-registro {
+  background: linear-gradient(
+      rgba(104, 104, 104, 0.488),
+      rgba(104, 104, 104, 0.488)
+    ),
+    url("../../../public/img/background/img-fondo.avif");
+  background-position: center;
+  display: flex;
+  padding: 210px;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .boxR {
+    width: 300px;
+    height: 320px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0px 0px 15px 2px rgb(1, 90, 126);
+  }
+
+  #container-infoR {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input {
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .buttonR {
+      margin-top: 5px;
+
+      .buttonR3:hover {
+        color: green;
+        transition: 0.3s;
+      }
+
+      .buttonR4:hover {
+        color: red;
+        transition: 0.3s;
+      }
+
+      button {
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+        margin-top: 5px;
+        padding: 3px;
+        background: none;
+      }
+    }
+  }
+}
