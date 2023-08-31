@@ -1,43 +1,39 @@
-import React, { useRef } from 'react';
-import Slider, { Settings } from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './CarouselSlider.scss';
-
+import React, { useRef } from "react";
+import Slider, { Settings } from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./CarouselSlider.scss";
 
 interface Image {
   url: string;
   alt: string;
 }
 
-
-
-const images: Image[] = [   
+const images: Image[] = [
   {
-    url: '/img/carousel/Grecia.png',
-    alt: 'Grecia',
-  },
-   {
-    url:'/img/carousel/Londres.png',
-    alt: 'Londres',
+    url: "/img/carousel/Grecia.png",
+    alt: "Grecia",
   },
   {
-    url: '/img/carousel/NewYork.png',
-    alt: 'New York',
+    url: "/img/carousel/Londres.png",
+    alt: "Londres",
   },
   {
-    url: '/img/carousel/Paris.png',
-    alt: 'Paris',
+    url: "/img/carousel/NewYork.png",
+    alt: "New York",
   },
   {
-    url: '/img/carousel/Roma.png',
-    alt: 'Roma',
+    url: "/img/carousel/Paris.png",
+    alt: "Paris",
   },
   {
-    url: '/img/carousel/TajMajal.png',
-    alt: 'Taj Majal',
+    url: "/img/carousel/Roma.png",
+    alt: "Roma",
   },
-  
+  {
+    url: "/img/carousel/TajMajal.png",
+    alt: "Taj Majal",
+  },
 ];
 
 const CarouselSlider: React.FC = () => {
@@ -52,13 +48,12 @@ const CarouselSlider: React.FC = () => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
-  
 
   return (
     <div className="carousel-slider">
       <Slider ref={sliderRef} {...sliderSettings}>
         {images.map((image, index) => (
-          <div className='caruselItem thumbnail' key={index}>
+          <div className="caruselItem thumbnail" key={index}>
             <img src={image.url} alt={image.alt} />
           </div>
         ))}
