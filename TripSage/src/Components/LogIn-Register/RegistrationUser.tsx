@@ -1,33 +1,43 @@
 import { useState } from "react";
 import "./registration.scss";
 
+export interface UserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
 type RegistrationUserProps = {
   onCancel: () => void;
-  onRegister: (userData: any) => void; // Aquí sería preferible tener un tipo específico para userData
+  onRegister: (userData: UserData) => void;
 };
 
 const RegistrationUser: React.FC<RegistrationUserProps> = ({
   onCancel,
   onRegister,
 }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState<UserData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegister = () => {
-    // Realiza aquí la lógica para registrar al nuevo usuario
-    if (password === confirmPassword) {
-      onRegister({
-        firstName,
-        lastName,
-        email,
-        password,
-      });
-    } else {
-      // Manejar caso de contraseñas no coincidentes
+    if (userData.password !== confirmPassword) {
+      alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+      return;
     }
+
+    if (userData.password.length < 6) {
+      alert("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+
+    onRegister(userData);
   };
 
   return (
@@ -39,32 +49,40 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
             <label>Nombre:</label>
             <input
               type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={userData.firstName}
+              onChange={(e) =>
+                setUserData({ ...userData, firstName: e.target.value })
+              }
             />
           </div>
           <div className="infoR">
             <label>Apellido:</label>
             <input
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={userData.lastName}
+              onChange={(e) =>
+                setUserData({ ...userData, lastName: e.target.value })
+              }
             />
           </div>
           <div className="infoR">
             <label>Email:</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={userData.email}
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
             />
           </div>
           <div className="infoR">
             <label>Contraseña:</label>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={userData.password}
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
             />
           </div>
           <div className="infoR">

@@ -1,31 +1,37 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.scss";
-import RegistrationUser from "./RegistrationUser"; // Asegúrate de importar correctamente
+import RegistrationUser, { UserData } from "./RegistrationUser";
 
 const LogIn = () => {
+  const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Lógica para iniciar sesión
-    console.log("Iniciar sesión:", email, password);
+  const handleLogin = () => {
+    if (email === "" || password === "") {
+      setError("Por favor, complete todos los campos.");
+    } else {
+      alert("Inicio sesion correctamente");
+      navigate("/");
+    }
   };
 
-  const handleRegister = (userData: any) => {
-    // Lógica para registrar al nuevo usuario
+  const handleRegister = (userData: UserData) => {
     console.log("Nuevo usuario registrado:", userData);
-  };
-
-  const handleCancel = () => {
     setIsRegistering(false);
   };
 
+  const [error, setError] = useState("");
+
   return (
-    <form onSubmit={isRegistering ? undefined : handleLogin}>
+    <div>
       {isRegistering ? (
-        <RegistrationUser onCancel={handleCancel} onRegister={handleRegister} />
+        <RegistrationUser
+          onCancel={() => setIsRegistering(false)}
+          onRegister={handleRegister}
+        />
       ) : (
         <div id="container-logIn">
           <div className="container-infoL">
@@ -45,7 +51,7 @@ const LogIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit" className="buttonR1">
+            <button onClick={handleLogin} className="buttonR1">
               Iniciar sesión
             </button>
             <div className="createAcount">
@@ -57,10 +63,11 @@ const LogIn = () => {
                 Registrarse
               </button>
             </div>
+            {error && <div className="error">{error}</div>}
           </div>
         </div>
       )}
-    </form>
+    </div>
   );
 };
 
