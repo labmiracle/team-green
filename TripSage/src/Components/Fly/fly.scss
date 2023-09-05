@@ -1,18 +1,21 @@
 @import "../../styles/Variables.scss";
 
 #container-fly {
+  font-family: $primary-font;
+  text-shadow: 3px 0px 7px white;
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../../../public/img/background/Flight.png");
-  background-position: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("../../../public/img/background/fondo-fly.jpg");
+  background-position: bottom;
+  background-size: cover;
 }
 
 .container-form-fly {
   width: 100vw;
-  background-color: blue;
+
   display: flex;
   justify-content: center;
 }
@@ -25,7 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-right: 20px;
+    margin-right: 70px;
 
     p {
       color: #fff;
@@ -34,7 +37,7 @@
     }
 
     input {
-      background-color: gray;
+      background-color: white;
       color: black;
       border: none;
       border-radius: 8px;
@@ -45,7 +48,7 @@
 
   button {
     color: black;
-    background-color: gray;
+    background-color: white;
     border: none;
     display: flex;
     width: 80px;
@@ -54,5 +57,6 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    cursor: pointer;
   }
 }
