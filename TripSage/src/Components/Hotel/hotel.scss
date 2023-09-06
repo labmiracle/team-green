@@ -3,6 +3,7 @@
 #container-hotel {
   font-family: $primary-font;
   text-shadow: 3px 0px 7px white;
+  font-size: 20px;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -15,7 +16,6 @@
 
 .container-form-hotel {
   width: 100vw;
-
   display: flex;
   justify-content: center;
 }
@@ -37,12 +37,14 @@
     }
 
     input {
+      text-align: center;
+      font-size: 17px;
       background-color: white;
       color: black;
       border: none;
       border-radius: 8px;
-      width: 150px;
-      height: 25px;
+      width: 200px;
+      height: 35px;
     }
   }
 
@@ -53,7 +55,7 @@
     display: flex;
     width: 80px;
     height: 20px;
-    margin-top: 25px;
+    margin-top: 45px;
     align-items: center;
     justify-content: center;
     border-radius: 10px;

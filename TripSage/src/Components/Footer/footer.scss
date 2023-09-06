@@ -10,6 +10,16 @@ footer {
     height: 100px;
 
     .social-networks {
+      h3 {
+        font-size: 20px;
+        margin-left: 20px;
+      }
+      hr {
+        margin-left: 18px;
+        height: 2px;
+        background: blue;
+      }
+
       ul {
         font-size: 20px;
         list-style: none;

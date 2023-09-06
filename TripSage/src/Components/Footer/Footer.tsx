@@ -7,10 +7,12 @@ const Footer = () => {
     <footer>
       <div id="container-footer">
         <div className="social-networks">
+          <h3>Social</h3>
+          <hr />
           <ul>
             <li>
               <NavLink
-                to="https://www.linkedin.com/in/franciscocrema-44284b239/"
+                to="https://www.linkedin.com/in/franciscocrema/"
                 className="linkedin"
               >
                 {FaLinkedin}
