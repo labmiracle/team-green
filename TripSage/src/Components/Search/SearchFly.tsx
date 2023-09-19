@@ -6,28 +6,35 @@ interface Product {
   price: number;
 }
 
-const ProductList: React.FC = () => {
+function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-   
+    // Aquí puedes hacer una solicitud al backend para obtener los productos
+    // Ejemplo ficticio de solicitud a una API:
     fetch('/api/products')
-      .then((response) => response.json())
-      .then((data) => setProducts(data));
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        setProducts(data);
+      });
   }, []);
 
   return (
     <div className="product-list">
       <h2>Lista de Productos</h2>
       <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} - ${product.price}
-          </li>
-        ))}
+        {products.map(function (product) {
+          return (
+            <li key={product.id}>
+              {product.name} - ${product.price}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
-};
+}
 
 export default ProductList;
