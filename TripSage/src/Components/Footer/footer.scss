@@ -4,10 +4,12 @@ footer {
   background: $gris-palido;
 
   #container-footer {
+    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    width: 100%;
+    padding: 1rem 0;
 
     .social-networks {
       h3 {
@@ -52,11 +54,13 @@ footer {
 
       hr {
         height: 2px;
+        margin-bottom: 2px;
         background: blue;
       }
 
       p {
         font-size: 12px;
+        margin-bottom: 3px;
       }
     }
   }
