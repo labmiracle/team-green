@@ -3,13 +3,13 @@
 ########################################################################
 # drops the database if the database already exists.
 # uncomment this line if you want to recreate the database.
-# DROP DATABASE IF EXISTS `paradigm_api_db`;
+# DROP DATABASE IF EXISTS `TripSage`;
 
 # creates a new database.
-CREATE DATABASE IF NOT EXISTS `paradigm_api_db`;
+CREATE DATABASE IF NOT EXISTS `TripSage`;
 
 # select the database.
-use `paradigm_api_db`;
+use `TripSage`;
 
 
 
@@ -54,6 +54,15 @@ CREATE TABLE IF NOT EXISTS `user`(
     CONSTRAINT `FX_User_Company`        FOREIGN KEY (`companyId`)     REFERENCES `company` (`id`),
     CONSTRAINT `FX_User_Role`           FOREIGN KEY (`roleId`)        REFERENCES `role` (`id`)
 )ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS `Flights` (
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `flightNumber` VARCHAR(20) NOT NULL,
+    `price` DECIMAL(10,2) NOT NULL,
+    `userId` INT,
+	CONSTRAINT `fk_userId_flight` FOREIGN KEY (`userId`) REFERENCES User(`id`)
+);
+
 
 CREATE TABLE `top_level_domains` (
   `id` int NOT NULL AUTO_INCREMENT,
