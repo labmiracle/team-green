@@ -10,8 +10,7 @@ function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    // Aquí puedes hacer una solicitud al backend para obtener los productos
-    // Ejemplo ficticio de solicitud a una API:
+    //solicitud al backend para obtener los productos
     fetch('/api/products')
       .then(function (response) {
         return response.json();
