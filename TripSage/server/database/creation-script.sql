@@ -145,6 +145,15 @@ INNER JOIN `company` c
 INNER JOIN `role` r
         ON u.roleId = r.id;
 
+CREATE OR REPLACE VIEW `FlightsView`
+AS
+SELECT
+    `id` AS `FlightId`,
+    `flightNumber`,
+    `price`,
+    `userId`
+FROM `Flights` f;
+
 ########################################################################
 # STORED PROCEDURES
 ########################################################################
