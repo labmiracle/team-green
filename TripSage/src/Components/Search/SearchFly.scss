@@ -1,0 +1,21 @@
+@import "../../styles/Variables.scss";
+
+.product-list {
+    text-align: center;
+    margin: 20px;
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+    }
+  }
+  
