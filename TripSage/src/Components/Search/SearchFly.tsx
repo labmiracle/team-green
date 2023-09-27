@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 interface Product {
   id: number;
@@ -11,7 +11,7 @@ function ProductList() {
 
   useEffect(() => {
     //solicitud al backend para obtener los productos
-    fetch('/api/products')
+    fetch("/api/products")
       .then(function (response) {
         return response.json();
       })
