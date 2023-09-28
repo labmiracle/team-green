@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./fly.scss";
+import ProductList from "../Search/SearchFly";
 
 function Fly() {
+  const [searchProd, setSearchProd] = useState(false);
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
@@ -39,11 +41,13 @@ function Fly() {
       departureDate,
       returnDate,
     });
+
+    setSearchProd(true);
   };
 
   return (
     <div id="container-fly">
-      <main>
+      <main className="container__main">
         <div className="container-form-fly">
           <form onSubmit={handleSubmit} className="form-fly">
             <label>
@@ -81,6 +85,7 @@ function Fly() {
             <button type="submit">Buscar</button>
           </form>
         </div>
+        {searchProd && <ProductList />}
       </main>
     </div>
   );
