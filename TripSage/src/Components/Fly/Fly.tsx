@@ -35,8 +35,7 @@ function Fly() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Aquí puedes realizar acciones adicionales con los datos del formulario
-    // como enviar una solicitud HTTP o guardarlos en el estado global.
+
     console.log({
       origin,
       destination,
