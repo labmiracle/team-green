@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./fly.scss";
-import ProductList from "../Search/SearchFly";
+import { useNavigate } from "react-router-dom";
 
 function Fly() {
   const [searchProd, setSearchProd] = useState(false);
@@ -31,6 +31,8 @@ function Fly() {
     setReturnDate(event.target.value);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Aquí puedes realizar acciones adicionales con los datos del formulario
@@ -43,6 +45,7 @@ function Fly() {
     });
 
     setSearchProd(true);
+    navigate("/productList");
   };
 
   return (
@@ -85,7 +88,6 @@ function Fly() {
             <button type="submit">Buscar</button>
           </form>
         </div>
-        {searchProd && <ProductList />}
       </main>
     </div>
   );

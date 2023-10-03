@@ -7,6 +7,7 @@ import Fly from "./Components/Fly/Fly";
 import Hotel from "./Components/Hotel/Hotel";
 import Home from "./Components/Home/Home";
 import LogIn from "./Components/LogIn-Register/LogIn";
+import ProductList from "./Components/Search/SearchFly";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/fly" element={<Fly />} />
           <Route path="/hotel" element={<Hotel />} />
           <Route path="/logIn" element={<LogIn />} />
+          <Route path="/productList" element={<ProductList />} />
         </Routes>
         <Footer />
       </BrowserRouter>

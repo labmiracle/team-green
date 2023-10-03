@@ -1,11 +1,17 @@
 @import "../../styles/Variables.scss";
 
 .product-list {
-  background-color: #ffff;
+  font-family: $primary-font;
+  text-shadow: 3px 0px 7px white;
+  font-size: 20px;
+  width: 100vw;
+  height: 100vh;
 
-  margin-top: 16rem;
-  padding: 1.3rem;
-  border-radius: 1rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url("../../../public/img/background/fondo-fly.jpg");
+  background-position: bottom;
+  background-size: cover;
+  background-color: #ffff;
 
   h2 {
     text-align: center;

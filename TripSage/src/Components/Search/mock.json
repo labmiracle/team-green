@@ -7348,7 +7348,6 @@
         }
       },
 
-      /* Detalles de un tramo de los vuelos */
       "legs": {
         "13554-2310070620--32677,-32132-2-11235-2310071240": {
           "originPlaceId": "95565050",
@@ -9159,7 +9158,6 @@
         }
       },
 
-      /* Segmento de paradas */
       "segments": {
         "10141-11235-2310071425-2310071505--32478": {
           "originPlaceId": "95565036",
@@ -11347,7 +11345,6 @@
         }
       },
 
-      /* Lugar */
       "places": {
         "27536561": {
           "entityId": "27536561",
@@ -11647,7 +11644,6 @@
         }
       },
 
-      /* Compañia de transporte */
       "carriers": {
         "-30651": {
           "name": "Emerald Airlines",
@@ -11779,7 +11775,6 @@
         }
       },
 
-      /* Agencias */
       "agents": {
         "a341": {
           "name": "telme",
@@ -12173,7 +12168,6 @@
       }
     },
 
-    /* Estadisticas del vuelo */
     "stats": {
       "itineraries": {
         "minDuration": 80,
