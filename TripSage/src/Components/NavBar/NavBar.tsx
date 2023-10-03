@@ -23,11 +23,6 @@ function NavBar() {
                       <img src="../../../public/img/Flight.png" alt="Fly" />
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink to="/hotel">
-                      <img src="../../../public/img/Hotel.png" alt="Hotel" />
-                    </NavLink>
-                  </li>
                 </ul>
               </nav>
 
