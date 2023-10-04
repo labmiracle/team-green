@@ -9,11 +9,11 @@ export interface IQuery {
             {
                 originPlaceId: {
                     iata: string;
-                    entityId: string;
+                    entityId?: string;
                 };
                 destinationPlaceId: {
                     iata: string;
-                    entityId: string;
+                    entityId?: string;
                 };
                 date: {
                     year: number;
@@ -22,15 +22,15 @@ export interface IQuery {
                 };
             }
         ];
-        cabinClass: "CABIN_CLASS_UNSPECIFIED" | "CABIN_CLASS_ECONOMY" | "CABIN_CLASS_PREMIUM_ECONOMY" | "CABIN_CLASS_BUSINESS" | "CABIN_CLASS_FIRST";
+        cabinClass?: "CABIN_CLASS_UNSPECIFIED" | "CABIN_CLASS_ECONOMY" | "CABIN_CLASS_PREMIUM_ECONOMY" | "CABIN_CLASS_BUSINESS" | "CABIN_CLASS_FIRST";
         adults: number;
-        childrenAges: [number];
-        includedCarriersIds: [string];
-        excludedCarriersIds: [string];
-        includedAgentsIds: [string];
-        excludedAgentsIds: [string];
-        includeSustainabilityData: true;
-        nearbyAirports: true;
+        childrenAges?: [number];
+        includedCarriersIds?: [string];
+        excludedCarriersIds?: [string];
+        includedAgentsIds?: [string];
+        excludedAgentsIds?: [string];
+        includeSustainabilityData?: true;
+        nearbyAirports?: true;
     };
 }
 

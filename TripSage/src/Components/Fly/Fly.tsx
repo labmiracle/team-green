@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./fly.scss";
 import { useNavigate } from "react-router-dom";
+import { SkyscannerApiClient } from "../../../server/src/controllers/search.controller";
+import { Query } from "../../../server/src/models/Flight/query";
 
 function Fly() {
   const [searchProd, setSearchProd] = useState(false);
@@ -36,6 +38,14 @@ function Fly() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    /*
+    const query = new Query();
+    const skyscannerApiClient = new SkyscannerApiClient();
+    //query.query.queryLegs[0].originPlaceId.iata = origin.toString;
+    //query.query.queryLegs[0].destinationPlaceId.iata = destination;
+    const search = skyscannerApiClient.create(query);
+    console.log(search);
+    */
     console.log({
       origin,
       destination,
