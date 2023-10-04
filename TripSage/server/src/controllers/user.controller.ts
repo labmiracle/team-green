@@ -1,12 +1,11 @@
 import { Action, ApiController, Controller, HttpMethod } from "@miracledevs/paradigm-express-webapi";
-import { User } from "../models/users/user";
+import { User } from "../models/users/User";
 import { UserRepository } from "../repositories/user.repository";
 import { Path, PathParam, GET, POST, DELETE, PUT, Security } from "typescript-rest";
 import { Response, Tags } from "typescript-rest-swagger";
 import { InsertionResult } from "../core/repositories/commands/db.command";
-import path from "path";
 
-@Path("api/users")
+@Path("/api/users")
 @Tags("Users")
 @Controller({ route: "/api/users" })
 export class UserController extends ApiController {
@@ -17,14 +16,17 @@ export class UserController extends ApiController {
     @GET
     @Response<string>(500, "Internal Server error")
     @Action({ route: "/" })
-    async get(): Promise<User[]> {
+    async getAll(): Promise<User[]> {
         try {
-            return this.repo.find("active = ?", [1]);
+            const users = await this.repo.getAll();
+            console.log(users)
+            return users;
         } catch (error) {
             this.httpContext.response.sendStatus(500);
-            return;
+            return [];
         }
     }
+    
 
     @GET
     @Response<string>(404, "User not found")
@@ -55,6 +57,7 @@ export class UserController extends ApiController {
         }
     }
 }
+
 
 /*
 
@@ -87,3 +90,4 @@ export class UserController extends ApiController {
     return user;
   }
 }*/
+
