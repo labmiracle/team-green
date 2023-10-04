@@ -58,13 +58,18 @@ export class SkyscannerApiClient {
 
     public async poll(sessionToken: string) {
         try {
+            axiosI.defaults.headers.common["x-api-key"] = this.apiKey;
             const search = await axiosI
-                .post(`/v3/flights/live/search/poll/${sessionToken}`, {
+                .post(`/v3/flights/live/search/poll/${sessionToken}`)
+                /*, {
                     method: "post",
+                    /*
                     headers: {
                         "x-api-key": this.apiKey,
                     },
-                })
+                    */
+                /*
+                })*/
                 .then((response: any) => {
                     console.log("iujuuuuuuuuuuu", response.data);
                     return response.data;
@@ -124,117 +129,3 @@ skyscannerApiClient
     .catch(error => {
         console.error("Error:", error);
     });
-/*
-        const headers = {
-            "x-api-key": this.apiKey,
-            "Content-Type": "application/json",
-        };
-        const response = await fetch(`${this.baseUrl}/v3/flights/live/search/create`, {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(query),
-        });
-
-        if (!response.ok) {
-            throw new Error(`Skyscanner API error: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log(data);
-        return data;
-    }
-}
-
-
-@Path("https://partners.api.skyscanner.net/apiservices")
-@Tags("Users")
-@Controller({ route: "https://partners.api.skyscanner.net/apiservices/v3/flights/live/search/create" })
-export class SearchController extends ApiController {
-    constructor(private repo: Query) {
-        super();
-    }
-
-    @POST
-    @Response<string>(500, "Internal Server error")
-    @Action({ route: "/v3/flights/live/search/create", method: HttpMethod.POST })
-
-
-    async create() {
-        try {
-            
-            this.httpContext.request.headers{
-                `x-api-key`: `sh428739766321522266746152871799`,
-                "Content-Type": "application/json"
-            }
-
-            this.httpContext.response.body =
-            return data = await this.create.json();
-            
-*/
-/*
-            const request = {
-                body: {
-                    query: {
-                        market: "UK",
-                        locale: "en-GB",
-                        currency: "GBP",
-                        queryLegs: [
-                            {
-                                originPlaceId: {
-                                    iata: "EDI", // The IATA code for the "Edinburgh" airport
-                                },
-                                destinationPlaceId: {
-                                    entityId: "27544008", // The internal Skyscanner ID for the "London" city
-                                },
-                                date: {
-                                    year: 2023,
-                                    month: 9,
-                                    day: 29,
-                                },
-                            },
-                            {
-                                originPlaceId: {
-                                    entityId: "27544008",
-                                },
-                                destinationPlaceId: {
-                                    iata: "EDI",
-                                },
-                                date: {
-                                    year: 2022,
-                                    month: 9,
-                                    day: 30,
-                                },
-                            },
-                        ],
-                        adults: 1,
-                        //               "childrenAges": [],
-                        cabinClass: "CABIN_CLASS_ECONOMY",
-                        //                 "excludedAgentsIds": [],
-                        //                   "excludedCarriersIds": [],
-                        //                     "includedAgentsIds": [],
-                        //                       "includedCarriersIds": [],
-                        includeSustainabilityData: false,
-                        nearbyAirports: false,
-                    },
-                },
-                headers: {
-                    "x-api-key": "sh428739766321522266746152871799",
-                    "Content-Type": "application/json",
-                },
-            };
-
-            const response = await fetch("https://partners.api.skyscanner.net/apiservices/v3/flights/live/search/create", {
-                method: "POST",
-                body: JSON.stringify(request.body),
-                headers: request.headers,
-            });
-
-            const data = await response.json();
-
-            return data;
-        } catch (error) {
-            this.httpContext.response.sendStatus(500);
-            return;
-        }
-    }
-} */
