@@ -13,14 +13,19 @@ const axiosI = axios.create({
     baseURL: `https://partners.api.skyscanner.net/apiservices`,
 });
 
-export class SkyscannerApiClient {
+@Tags("Flights")
+@Path("/flights")
+@Controller({ route: "/flights" })
+export class SkyscannerApiClient extends ApiController {
     private readonly apiKey: string = `sh428739766321522266746152871799`;
     private readonly baseUrl: string = `https://partners.api.skyscanner.net/apiservices`;
 
     constructor() {
-        this.apiKey = `sh428739766321522266746152871799`;
+        super();
     }
 
+    @POST
+    @Action({ route: "/search" })
     public async create(query: IQuery) {
         try {
             const response = await axiosI
@@ -34,8 +39,8 @@ export class SkyscannerApiClient {
                 .then((response: any) => {
                     //response.json(response.data);
                     console.log(response.data);
-                    const search = skyscannerApiClient.poll(response.data.sessionToken);
-                    return search;
+                    //const search = SkyscannerApiClient.poll(response.data.sessionToken);
+                    return response.data;
                 });
         } catch (error) {
             if (error.response) {
@@ -56,6 +61,9 @@ export class SkyscannerApiClient {
         }
     }
 
+    @POST
+    @Path("/search/:sessionToken")
+    @Action({ route: "/search/:sessionToken" })
     public async poll(sessionToken: string) {
         try {
             axiosI.defaults.headers.common["x-api-key"] = this.apiKey;
@@ -71,7 +79,7 @@ export class SkyscannerApiClient {
                 /*
                 })*/
                 .then((response: any) => {
-                    console.log("iujuuuuuuuuuuu", response.data);
+                    console.log("Datos de vuelos:", response.data);
                     return response.data;
                 });
         } catch (error) {
@@ -94,6 +102,7 @@ export class SkyscannerApiClient {
     }
 }
 
+/*
 const query: IQuery = {
     query: {
         market: "UK",
@@ -129,3 +138,4 @@ skyscannerApiClient
     .catch(error => {
         console.error("Error:", error);
     });
+*/
