@@ -5,11 +5,7 @@ export class MySqlConfiguration {
     host: string = process.env.paradigm_api__mysql__host;
 
     /**
-     * paradigm_api__mysql__host = Euge
-paradigm_api__mysql__user = euge
-paradigm_api__mysql__password = euge2468
-paradigm_api__mysql__database = users
-paradigm_api__mysql__port=5000
+     * 
 
      * The database server host address port, if null the default 3306 port will be used.
      */
