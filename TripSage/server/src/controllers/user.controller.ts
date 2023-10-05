@@ -1,5 +1,5 @@
 import { Action, ApiController, Controller, HttpMethod } from "@miracledevs/paradigm-express-webapi";
-import { User } from "../models/users/User";
+import { User } from "../models/users/user";
 import { UserRepository } from "../repositories/user.repository";
 import { Path, PathParam, GET, POST, DELETE, PUT, Security } from "typescript-rest";
 import { Response, Tags } from "typescript-rest-swagger";
@@ -19,14 +19,13 @@ export class UserController extends ApiController {
     async getAll(): Promise<User[]> {
         try {
             const users = await this.repo.getAll();
-            console.log(users)
+            console.log(users);
             return users;
         } catch (error) {
             this.httpContext.response.sendStatus(500);
             return [];
         }
     }
-    
 
     @GET
     @Response<string>(404, "User not found")
@@ -57,7 +56,6 @@ export class UserController extends ApiController {
         }
     }
 }
-
 
 /*
 
@@ -90,4 +88,3 @@ export class UserController extends ApiController {
     return user;
   }
 }*/
-

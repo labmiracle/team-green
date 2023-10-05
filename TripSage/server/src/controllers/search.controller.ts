@@ -13,9 +13,9 @@ const axiosI = axios.create({
     baseURL: `https://partners.api.skyscanner.net/apiservices`,
 });
 
-@Tags("Flights")
-@Path("/flights")
-@Controller({ route: "/flights" })
+@Tags("flights")
+@Path("/api/flights")
+@Controller({ route: "/api/flights" })
 export class SkyscannerApiClient extends ApiController {
     private readonly apiKey: string = `sh428739766321522266746152871799`;
     private readonly baseUrl: string = `https://partners.api.skyscanner.net/apiservices`;
@@ -25,7 +25,7 @@ export class SkyscannerApiClient extends ApiController {
     }
 
     @POST
-    @Action({ route: "/search" })
+    @Action({ route: "/" })
     public async create(query: IQuery) {
         try {
             const response = await axiosI
@@ -64,7 +64,7 @@ export class SkyscannerApiClient extends ApiController {
     @POST
     @Path("/search/:sessionToken")
     @Action({ route: "/search/:sessionToken" })
-    public async poll(sessionToken: string) {
+    public async poll(@PathParam("sessionToken") sessionToken: string) {
         try {
             axiosI.defaults.headers.common["x-api-key"] = this.apiKey;
             const search = await axiosI
