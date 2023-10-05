@@ -2,27 +2,33 @@ export class MySqlConfiguration {
     /**
      * The database server host address.
      */
-    host: string;
+    host: string = process.env.paradigm_api__mysql__host;
 
     /**
+     * paradigm_api__mysql__host = Euge
+paradigm_api__mysql__user = euge
+paradigm_api__mysql__password = euge2468
+paradigm_api__mysql__database = users
+paradigm_api__mysql__port=5000
+
      * The database server host address port, if null the default 3306 port will be used.
      */
-    port?: number;
+    port?: number = Number(process.env.paradigm_api__mysql__port);
 
     /**
      * The name of the database.
      */
-    database: string;
+    database: string = process.env.paradigm_api__mysql__database;
 
     /**
      * The name of the user.
      */
-    user: string;
+    user: string = process.env.paradigm_api__mysql__user;
 
     /**
      * The password of the user.
      */
-    password?: string;
+    password?: string = process.env.paradigm_api__mysql__password;
 
     /**
      * A connection timeout limit in milliseconds.
