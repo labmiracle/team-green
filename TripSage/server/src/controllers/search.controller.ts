@@ -7,6 +7,7 @@ import { Headers } from "node-fetch";
 import { IQuery } from "../models/Flight/query";
 import { HttpHeaders } from "@miracledevs/paradigm-web-fetch";
 import { Axios } from "axios";
+import { get } from "https";
 
 const axios = require("axios");
 const axiosI = axios.create({
@@ -32,7 +33,7 @@ export class SkyscannerApiClient extends ApiController {
                 .post(`/v3/flights/live/search/create`, query, {
                     method: "post",
                     headers: {
-                        "x-api-key": this.apiKey,
+                        "x-api-key": "sh428739766321522266746152871799",
                     },
                     data: { query },
                 })
@@ -102,7 +103,6 @@ export class SkyscannerApiClient extends ApiController {
     }
 }
 
-/*
 const query: IQuery = {
     query: {
         market: "UK",
@@ -138,4 +138,3 @@ skyscannerApiClient
     .catch(error => {
         console.error("Error:", error);
     });
-*/
