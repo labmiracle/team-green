@@ -138,3 +138,4 @@ skyscannerApiClient
     .catch(error => {
         console.error("Error:", error);
     });
+

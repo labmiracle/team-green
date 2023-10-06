@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { productsApiSky } from "../../Actions/product";
+import QueryParams from "./QueryParams";
 import "./fly.scss";
-import { useNavigate } from "react-router-dom";
-import { SkyscannerApiClient } from "../../../server/src/controllers/search.controller";
-import { Query } from "../../../server/src/models/Flight/query";
+import { FlightData } from "../Search/SearchFly";
 
 function Fly() {
   const [searchProd, setSearchProd] = useState(false);
@@ -10,8 +11,9 @@ function Fly() {
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+  const [searchResults, setSearchResults] = useState<FlightData | null>(null);
 
-  const handleOriginChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOriginChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setOrigin(event.target.value);
   };
 
@@ -35,26 +37,29 @@ function Fly() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  // useEffect(() => {
+  //   if (searchProd) {
+  //     navigate("/fligths");
+  //   }
+  // }, [searchProd, navigate]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    /*
-    const query = new Query();
-    const skyscannerApiClient = new SkyscannerApiClient();
-    //query.query.queryLegs[0].originPlaceId.iata = origin.toString;
-    //query.query.queryLegs[0].destinationPlaceId.iata = destination;
-    const search = skyscannerApiClient.create(query);
-    console.log(search);
-    */
-    console.log({
-      origin,
-      destination,
-      departureDate,
-      returnDate,
-    });
+    const queries = QueryParams();
 
-    setSearchProd(true);
-    navigate("/productList");
+    for (const query of queries) {
+      try {
+        // Llamar a la función productsApiSky con los parámetros de consulta
+        const response = await productsApiSky(query);
+        setSearchResults(response);
+        setSearchProd(true);
+        console.log("Respuesta de la búsqueda:", response);
+      } catch (error) {
+        console.error("Error al realizar la búsqueda:", error);
+      }
+    }
+    navigate("/fligths");
   };
 
   return (
@@ -64,7 +69,23 @@ function Fly() {
           <form onSubmit={handleSubmit} className="form-fly">
             <label>
               <p>Desde:</p>
-              <input type="text" value={origin} onChange={handleOriginChange} />
+              <select
+                name="Trasyectos"
+                onChange={handleOriginChange}
+                value={origin}
+              >
+                <option value="Andorra">Andorra</option>
+                <option value="Afganistán">Afganistán</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Australia">Australia</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Brasil">Brasil</option>
+                <option value="Canadá">Canadá</option>
+                <option value="Chile">Chile</option>
+                <option value="Croacia">Croacia</option>
+                <option value="Hungría">Hungría</option>
+                <option value="Indonesia">Indonesia</option>
+              </select>
             </label>
             <br />
             <label>
@@ -96,6 +117,7 @@ function Fly() {
             <br />
             <button type="submit">Buscar</button>
           </form>
+          {searchResults && <Link to="/fligths">Ver resultados</Link>}
         </div>
       </main>
     </div>
