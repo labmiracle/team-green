@@ -5,7 +5,7 @@ export interface UserData {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
+  passwordHash: string;
 }
 
 type RegistrationUserProps = {
@@ -21,21 +21,22 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    passwordHash: "",
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegister = () => {
-    if (userData.password !== confirmPassword) {
+    if (userData.passwordHash !== confirmPassword) {
       alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
       return;
     }
 
-    if (userData.password.length < 6) {
+    if (userData.passwordHash.length < 6) {
       alert("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
+
     const requestOptions = {
       method: "POST",
       headers: {
@@ -44,7 +45,7 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
       body: JSON.stringify(userData),
     };
     // Make the POST request to the registration API endpoint
-    fetch("api/users/registration", requestOptions)
+    fetch("http://localhost:5000/api/users/register", requestOptions)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -103,9 +104,9 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
             <label>Contraseña:</label>
             <input
               type="password"
-              value={userData.password}
+              value={userData.passwordHash}
               onChange={(e) =>
-                setUserData({ ...userData, password: e.target.value })
+                setUserData({ ...userData, passwordHash: e.target.value })
               }
             />
           </div>
