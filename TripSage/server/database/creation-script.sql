@@ -64,14 +64,14 @@ CREATE TABLE IF NOT EXISTS `Flights` (
 );
 
 
-CREATE TABLE `top_level_domains` (
+CREATE TABLE IF NOT EXISTS `top_level_domains` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=INNODB;
 
-CREATE TABLE `phone_area_codes` (
+CREATE TABLE IF NOT EXISTS `phone_area_codes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `areaCode` int DEFAULT NULL,
   `location` varchar(45) DEFAULT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `phone_area_codes` (
   UNIQUE KEY `area_code_UNIQUE` (`areaCode`)
 ) ENGINE=INNODB;
 
-CREATE TABLE `access_log` (
+CREATE TABLE IF NOT EXISTS `access_log` (
   `id` int NOT NULL AUTO_INCREMENT,
   `method` varchar(200) NOT NULL,
   `message` varchar(200) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `access_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB;
 
-CREATE TABLE `member_classes_log` (
+CREATE TABLE IF NOT EXISTS `member_classes_log` (
   `id` int NOT NULL AUTO_INCREMENT,
   `roleId` varchar(50) NOT NULL,
   `eventInstanceId` int NOT NULL,
@@ -178,6 +178,30 @@ VALUES  (1, 'Guest'		, ''),
     ON DUPLICATE KEY
 UPDATE `Name` = roles.`Name`,
         `Description` = roles.`Description`;
+
+INSERT INTO `user` (`id`, `roleId`, `companyId`, `userName`, `firstName`, `lastName`, `email`, `registrationDate`, `passwordHash`)
+VALUES
+    (1, 1, 1, 'user1', 'John', 'Doe', 'user1@example.com', '2023-10-07 12:00:00', 'passwordHash1'),
+    (2, 2, 1, 'user2', 'Jane', 'Smith', 'user2@example.com', '2023-10-07 13:00:00', 'passwordHash2'),
+    (3, 1, 1, 'user3', 'Alice', 'Johnson', 'user3@example.com', '2023-10-07 14:00:00', 'passwordHash3'),
+    (4, 3, 1, 'user4', 'Bob', 'Brown', 'user4@example.com', '2023-10-07 15:00:00', 'passwordHash4'),
+    (5, 2, 1, 'user5', 'Eve', 'Williams', 'user5@example.com', '2023-10-07 16:00:00', 'passwordHash5'),
+    (6, 1, 1, 'user6', 'Michael', 'Anderson', 'user6@example.com', '2023-10-07 17:00:00', 'passwordHash6'),
+    (7, 3, 1, 'user7', 'Sarah', 'Martinez', 'user7@example.com', '2023-10-07 18:00:00', 'passwordHash7'),
+    (8, 2, 1, 'user8', 'David', 'Garcia', 'user8@example.com', '2023-10-07 19:00:00', 'passwordHash8'),
+    (9, 1, 1, 'user9', 'Laura', 'Lee', 'user9@example.com', '2023-10-07 20:00:00', 'passwordHash9'),
+    (10, 2, 1, 'user10', 'William', 'Harris', 'user10@example.com', '2023-10-07 21:00:00', 'passwordHash10'),
+    (11, 1, 1, 'user11', 'Emily', 'Thompson', 'user11@example.com', '2023-10-07 22:00:00', 'passwordHash11'),
+    (12, 3, 1, 'user12', 'James', 'White', 'user12@example.com', '2023-10-07 23:00:00', 'passwordHash12'),
+    (13, 2, 1, 'user13', 'Olivia', 'Brown', 'user13@example.com', '2023-10-07 00:00:00', 'passwordHash13'),
+    (14, 1, 1, 'user14', 'Liam', 'Johnson', 'user14@example.com', '2023-10-07 01:00:00', 'passwordHash14'),
+    (15, 3, 1, 'user15', 'Ava', 'Davis', 'user15@example.com', '2023-10-07 02:00:00', 'passwordHash15'),
+    (16, 2, 1, 'user16', 'Noah', 'Wilson', 'user16@example.com', '2023-10-07 03:00:00', 'passwordHash16'),
+    (17, 1, 1, 'user17', 'Sophia', 'Miller', 'user17@example.com', '2023-10-07 04:00:00', 'passwordHash17'),
+    (18, 3, 1, 'user18', 'Logan', 'Moore', 'user18@example.com', '2023-10-07 05:00:00', 'passwordHash18'),
+    (19, 2, 1, 'user19', 'Mia', 'Gonzalez', 'user19@example.com', '2023-10-07 06:00:00', 'passwordHash19'),
+    (20, 1, 1, 'user20', 'Elijah', 'Hall', 'user20@example.com', '2023-10-07 07:00:00', 'passwordHash20');
+
 
 INSERT
         INTO `phone_area_codes`
@@ -2078,3 +2102,4 @@ VALUES
       (1496,'ZONE'),
       (1497,'ZUERICH'),
       (1498,'ZW');
+CREATE TABLE `top_level_domains` (   `id` int NOT NULL AUTO_INCREMENT,   `name` varchar(255) DEFAULT NULL,   PRIMARY KEY (`id`),   UNIQUE KEY `name_UNIQUE` (`name`) ) ENGINE=INNODB

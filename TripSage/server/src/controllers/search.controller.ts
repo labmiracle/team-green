@@ -39,9 +39,9 @@ export class SkyscannerApiClient extends ApiController {
                 })
                 .then((response: any) => {
                     //response.json(response.data);
-                    console.log(response.data);
+                    console.log(JSON.stringify(response.data));
                     //const search = SkyscannerApiClient.poll(response.data.sessionToken);
-                    return response.data;
+                    return JSON.stringify(response.data);
                 });
         } catch (error) {
             if (error.response) {
@@ -81,7 +81,7 @@ export class SkyscannerApiClient extends ApiController {
                 })*/
                 .then((response: any) => {
                     console.log("Datos de vuelos:", response.data);
-                    return response.data;
+                    return (response = JSON.stringify(response.data));
                 });
         } catch (error) {
             if (error.response) {

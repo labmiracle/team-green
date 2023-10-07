@@ -43,7 +43,7 @@ export class UserController extends ApiController {
     @POST
     @Response<User>(201, "User created")
     @Response<string>(500, "Internal server error")
-    @Action({ route: "/", fromBody: true })
+    @Action({ route: "/register", fromBody: true })
     async post(user: User): Promise<User> {
         try {
             const metadata: InsertionResult<number> = await this.repo.insertOne(user);

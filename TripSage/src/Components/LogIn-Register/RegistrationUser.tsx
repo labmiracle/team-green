@@ -36,7 +36,31 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
       alert("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
-
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    };
+    // Make the POST request to the registration API endpoint
+    fetch("api/users/registration", requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // Parse the JSON response
+      })
+      .then((data) => {
+        // Handle the successful registration response here
+        console.log("User registration successful:", data);
+        // You can perform any additional actions or navigation as needed
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error registering user:", error);
+        // Display an error message to the user or take appropriate action
+      });
     onRegister(userData);
   };
 
