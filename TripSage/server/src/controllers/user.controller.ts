@@ -1,5 +1,5 @@
 import { Action, ApiController, Controller, HttpMethod } from "@miracledevs/paradigm-express-webapi";
-import { User } from "../models/users/user";
+import { User } from "../models/users/User";
 import { UserRepository } from "../repositories/user.repository";
 import { Path, PathParam, GET, POST, DELETE, PUT, Security } from "typescript-rest";
 import { Response, Tags } from "typescript-rest-swagger";

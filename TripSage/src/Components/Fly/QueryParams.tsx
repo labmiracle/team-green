@@ -51,10 +51,10 @@ function QueryParams() {
       queryLegs: [
         {
           originPlaceId: {
-            iata: "LHR",
+            iata: "EZE",
           },
           destinationPlaceId: {
-            iata: "CDG",
+            iata: "MAD",
           },
           date: {
             year: 2023,
@@ -67,160 +67,161 @@ function QueryParams() {
       cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
     },
     {
-      market: "UK",
-      locale: "en-GB",
-      currency: "GBP",
+      market: "FR",
+      locale: "fr-FR",
+      currency: "EUR",
       queryLegs: [
         {
           originPlaceId: {
-            iata: "LHR",
+            iata: "CDG",
           },
           destinationPlaceId: {
-            iata: "CDG",
+            iata: "FRA",
           },
           date: {
             year: 2023,
             month: 11,
-            day: 20,
+            day: 25,
           },
         },
       ],
       adults: 1,
+      cabinClass: "CABIN_CLASS_ECONOMY",
+    },
+    {
+      market: "DE",
+      locale: "de-DE",
+      currency: "EUR",
+      queryLegs: [
+        {
+          originPlaceId: {
+            iata: "MUC",
+          },
+          destinationPlaceId: {
+            iata: "JFK",
+          },
+          date: {
+            year: 2023,
+            month: 11,
+            day: 18,
+          },
+        },
+      ],
+      adults: 2,
       cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
     },
     {
-      market: "UK",
-      locale: "en-GB",
-      currency: "GBP",
+      market: "ES",
+      locale: "es-ES",
+      currency: "EUR",
       queryLegs: [
         {
           originPlaceId: {
-            iata: "LHR",
+            iata: "BCN",
           },
           destinationPlaceId: {
-            iata: "CDG",
+            iata: "MIA",
           },
           date: {
             year: 2023,
             month: 11,
-            day: 20,
+            day: 10,
           },
         },
       ],
       adults: 1,
+      cabinClass: "CABIN_CLASS_ECONOMY",
+    },
+    {
+      market: "IT",
+      locale: "it-IT",
+      currency: "EUR",
+      queryLegs: [
+        {
+          originPlaceId: {
+            iata: "FCO",
+          },
+          destinationPlaceId: {
+            iata: "ATH",
+          },
+          date: {
+            year: 2023,
+            month: 11,
+            day: 5,
+          },
+        },
+      ],
+      adults: 1,
+      cabinClass: "CABIN_CLASS_ECONOMY",
+    },
+    {
+      market: "AU",
+      locale: "en-AU",
+      currency: "AUD",
+      queryLegs: [
+        {
+          originPlaceId: {
+            iata: "SYD",
+          },
+          destinationPlaceId: {
+            iata: "AKL",
+          },
+          date: {
+            year: 2023,
+            month: 11,
+            day: 22,
+          },
+        },
+      ],
+      adults: 2,
       cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
     },
     {
-      market: "UK",
-      locale: "en-GB",
-      currency: "GBP",
+      market: "CA",
+      locale: "en-CA",
+      currency: "CAD",
       queryLegs: [
         {
           originPlaceId: {
-            iata: "LHR",
+            iata: "YYZ",
           },
           destinationPlaceId: {
-            iata: "CDG",
+            iata: "YVR",
           },
           date: {
             year: 2023,
             month: 11,
-            day: 20,
+            day: 17,
           },
         },
       ],
       adults: 1,
-      cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
+      cabinClass: "CABIN_CLASS_ECONOMY",
     },
     {
-      market: "UK",
-      locale: "en-GB",
-      currency: "GBP",
+      market: "JP",
+      locale: "ja-JP",
+      currency: "JPY",
       queryLegs: [
         {
           originPlaceId: {
-            iata: "LHR",
+            iata: "HND",
           },
           destinationPlaceId: {
-            iata: "CDG",
+            iata: "ICN",
           },
           date: {
             year: 2023,
             month: 11,
-            day: 20,
+            day: 12,
           },
         },
       ],
       adults: 1,
-      cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
-    },
-    {
-      market: "UK",
-      locale: "en-GB",
-      currency: "GBP",
-      queryLegs: [
-        {
-          originPlaceId: {
-            iata: "LHR",
-          },
-          destinationPlaceId: {
-            iata: "CDG",
-          },
-          date: {
-            year: 2023,
-            month: 11,
-            day: 20,
-          },
-        },
-      ],
-      adults: 1,
-      cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
-    },
-    {
-      market: "UK",
-      locale: "en-GB",
-      currency: "GBP",
-      queryLegs: [
-        {
-          originPlaceId: {
-            iata: "LHR",
-          },
-          destinationPlaceId: {
-            iata: "CDG",
-          },
-          date: {
-            year: 2023,
-            month: 11,
-            day: 20,
-          },
-        },
-      ],
-      adults: 1,
-      cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
-    },
-    {
-      market: "UK",
-      locale: "en-GB",
-      currency: "GBP",
-      queryLegs: [
-        {
-          originPlaceId: {
-            iata: "LHR",
-          },
-          destinationPlaceId: {
-            iata: "CDG",
-          },
-          date: {
-            year: 2023,
-            month: 11,
-            day: 20,
-          },
-        },
-      ],
-      adults: 1,
-      cabinClass: "CABIN_CLASS_PREMIUM_ECONOMY",
+      cabinClass: "CABIN_CLASS_ECONOMY",
     },
   ];
+
   return queries;
 }
 

@@ -5,7 +5,7 @@ export const productsApiSky = async (query: any) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(query), // Convierte el objeto query en una cadena JSON
+      body: JSON.stringify(query),
     });
 
     if (!result.ok) {

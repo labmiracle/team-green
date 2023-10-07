@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./registration.scss";
+import { useNavigate } from "react-router-dom";
 
 export interface UserData {
   firstName: string;
@@ -17,6 +18,12 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
   onCancel,
   onRegister,
 }) => {
+  const handleCancelRegistration = () => {
+    onCancel();
+    navigate("/logIn"); // Redirigir de vuelta a la página de inicio de sesión al cancelar el registro.
+  };
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState<UserData>({
     firstName: "",
     lastName: "",
@@ -37,33 +44,53 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
       return;
     }
 
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    };
-    // Make the POST request to the registration API endpoint
-    fetch("http://localhost:5000/api/users/register", requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json(); // Parse the JSON response
-      })
-      .then((data) => {
-        // Handle the successful registration response here
-        console.log("User registration successful:", data);
-        // You can perform any additional actions or navigation as needed
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error("Error registering user:", error);
-        // Display an error message to the user or take appropriate action
-      });
-    onRegister(userData);
+    // Simulamos un registro exitoso
+    console.log("Simulando registro exitoso:", userData);
+
+    // Redirigir al usuario al inicio de sesión
+    navigate("/logIn");
   };
+
+  // const handleRegister = () => {
+  //   if (userData.password !== confirmPassword) {
+  //     alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+  //     return;
+  //   }
+
+  //   if (userData.password.length < 6) {
+  //     alert("La contraseña debe tener al menos 6 caracteres.");
+  //     return;
+  //   }
+
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(userData),
+  //   };
+
+  //   // Make the POST request to the registration API endpoint
+  //   fetch("api/users/register", requestOptions)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json(); // Parse the JSON response
+  //     })
+  //     .then((data) => {
+  //       // Handle the successful registration response here
+  //       console.log("User registration successful:", data);
+  //       // You can perform any additional actions or navigation as needed
+  //       onRegister(userData);
+  //       navigate("/logIn"); // Redirige a "/logIn" después del registro exitoso
+  //     })
+  //     .catch((error) => {
+  //       // Handle errors
+  //       console.error("Error registering user:", error);
+  //       // Display an error message to the user or take appropriate action
+  //     });
+  // };
 
   return (
     <div id="container-registro">
@@ -122,7 +149,7 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
             <button onClick={handleRegister} className="buttonR3">
               Registrarse
             </button>
-            <button onClick={onCancel} className="buttonR4">
+            <button onClick={handleCancelRegistration} className="buttonR4">
               Cancelar
             </button>
           </div>
