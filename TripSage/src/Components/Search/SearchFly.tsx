@@ -55,7 +55,7 @@ interface Leg {
   segmentIds: string[];
 }
 
-interface FlightData {
+export interface FlightData {
   itineraries: { [key: string]: Itinerary };
   legs: { [key: string]: Leg };
 }
@@ -75,8 +75,28 @@ function ProductList() {
     return () => clearTimeout(timeout);
   }, []);
 
+  // useEffect(() => {
+  //   // Verifica si tienes resultados reales (después de hacer la llamada a la API)
+  //   if (searchResults) {
+  //     setFlightData(searchResults);
+  //     setShowLoader(false);
+  //   }
+  // }, [searchResults]);
+
   useEffect(() => {
     const fetchData = async () => {
+      // try {
+      //   // Llamar a la función productsApiSky para obtener datos reales
+      // const queries = QueryParams();
+      // const responses = await Promise.all(
+      //   queries.map((query) => productsApiSky(query))
+      // );
+
+      //   // Obtener los datos de la última respuesta de la API (puedes ajustar esto según tus necesidades)
+      //   const data = responses[responses.length - 1];
+
+      //   console.log("Datos de la API:", data);
+
       try {
         const response = ProductosJson;
         const data = response;
