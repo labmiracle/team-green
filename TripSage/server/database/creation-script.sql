@@ -107,6 +107,15 @@ CREATE TABLE IF NOT EXISTS `member_classes_log` (
   UNIQUE KEY `role_eventInstance_UNIQUE` (`roleId`, `eventInstanceId`)
 ) ENGINE=INNODB;
 
+CREATE TABLE IF NOT EXISTS `places` (
+    `entityId` VARCHAR(255) NOT NULL PRIMARY KEY,
+    `parentId` VARCHAR(255),
+    `name` VARCHAR(255),
+    `type` VARCHAR(255),
+    `iata` VARCHAR(255),
+    `latitude` FLOAT,
+    `longitude` FLOAT
+);
 
 ########################################################################
 # TABLE UPGRADES

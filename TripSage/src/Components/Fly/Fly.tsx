@@ -3,7 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { productsApiSky } from "../../Actions/product";
 import QueryParams from "./QueryParams";
 import "./fly.scss";
-import { FlightData } from "../Search/SearchFly";
+import { ProductList } from "../Search/SearchFly";
+import { IQuery } from "../../../server/src/models/Flight/query";
+import { IFlight } from "../../../server/src/models/Flight/Flight";
+import geo from "../Search/data/geo.json";
 
 function Fly() {
   const [searchProd, setSearchProd] = useState(false);
@@ -11,14 +14,34 @@ function Fly() {
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const [searchResults, setSearchResults] = useState<FlightData | null>(null);
+  const [searchResults, setSearchResults] = useState<IFlight | null>(null);
+  const [sessionTokenP, setSessionTokenP] = useState<string>("");
+  const places: PlacesData = geo;
+
+  interface Place {
+    entityId: string;
+    parentId: string;
+    name: string;
+    type: string;
+    iata: string;
+    coordinates: {
+      latitude: number;
+      longitude: number;
+    };
+  }
+
+  interface PlacesData {
+    status: string;
+    places: Record<string, Place>;
+  }
 
   const handleOriginChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(event.target.value);
     setOrigin(event.target.value);
   };
 
   const handleDestinationChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setDestination(event.target.value);
   };
@@ -46,20 +69,42 @@ function Fly() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const queries = QueryParams();
+    const query: IQuery = {
+      query: {
+        market: "AR",
+        locale: "es-ES",
+        currency: "ARS",
+        queryLegs: [
+          {
+            originPlaceId: {
+              iata: origin,
+            },
+            destinationPlaceId: {
+              iata: destination,
+            },
+            date: {
+              year: parseInt(departureDate.split("-")[0]),
+              month: parseInt(departureDate.split("-")[1]),
+              day: parseInt(departureDate.split("-")[2]),
+            },
+          },
+        ],
+        adults: 1,
+        cabinClass: "CABIN_CLASS_ECONOMY",
+      },
+    };
 
-    for (const query of queries) {
-      try {
-        // Llamar a la función productsApiSky con los parámetros de consulta
-        const response = await productsApiSky(query);
-        setSearchResults(response);
-        setSearchProd(true);
-        console.log("Respuesta de la búsqueda:", response);
-      } catch (error) {
-        console.error("Error al realizar la búsqueda:", error);
-      }
+    try {
+      // Llamar a la función productsApiSky con los parámetros de consulta
+      const response = await productsApiSky(query);
+      setSessionTokenP(response.sessionToken);
+      setSearchResults(response);
+      setSearchProd(true);
+      console.log("Respuesta de la búsqueda:", response);
+      navigate("/fligths");
+    } catch (error) {
+      console.error("Error al realizar la búsqueda:", error);
     }
-    navigate("/fligths");
   };
 
   return (
@@ -70,31 +115,33 @@ function Fly() {
             <label>
               <p>Desde:</p>
               <select
-                name="Trasyectos"
+                name="Trayectos"
                 onChange={handleOriginChange}
                 value={origin}
               >
-                <option value="Andorra">Andorra</option>
-                <option value="Afganistán">Afganistán</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Australia">Australia</option>
-                <option value="Bolivia">Bolivia</option>
-                <option value="Brasil">Brasil</option>
-                <option value="Canadá">Canadá</option>
-                <option value="Chile">Chile</option>
-                <option value="Croacia">Croacia</option>
-                <option value="Hungría">Hungría</option>
-                <option value="Indonesia">Indonesia</option>
+                <option value="">Seleccionar origen</option>
+                {Object.values(places.places).map((place) => (
+                  <option key={place.entityId} value={place.iata}>
+                    {place.name}
+                  </option>
+                ))}
               </select>
             </label>
             <br />
             <label>
               <p>A:</p>
-              <input
-                type="text"
-                value={destination}
+              <select
+                name="text"
                 onChange={handleDestinationChange}
-              />
+                value={destination}
+              >
+                <option value="">Seleccionar destino</option>
+                {Object.values(places.places).map((place) => (
+                  <option key={place.entityId} value={place.iata}>
+                    {place.name}
+                  </option>
+                ))}
+              </select>
             </label>
             <br />
             <label>
@@ -117,6 +164,7 @@ function Fly() {
             <br />
             <button type="submit">Buscar</button>
           </form>
+          {sessionTokenP && <ProductList sessionToken={sessionTokenP} />}
           {searchResults && <Link to="/fligths">Ver resultados</Link>}
         </div>
       </main>

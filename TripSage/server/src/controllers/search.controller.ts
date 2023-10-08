@@ -81,18 +81,15 @@ export class SkyscannerApiClient extends ApiController {
                 })*/
                 .then((response: any) => {
                     console.log("Datos de vuelos:", response.data);
-                    return (response = JSON.stringify(response.data));
+                    return response.data;
+                    //    return (response = JSON.stringify(response.data));
                 });
         } catch (error) {
             if (error.response) {
                 console.log("El error es:", error.response.data);
                 console.log("El error es:", error.response.status);
                 console.log("El error es:", error.response.headers);
-                //response.status(500).json({ error: "Error en la llamada" });
             } else if (error.request) {
-                // La petición fue hecha pero no se recibió respuesta
-                // `error.request` es una instancia de XMLHttpRequest en el navegador y una instancia de
-                // http.ClientRequest en node.js
                 console.log(error.request);
             } else {
                 // Algo paso al preparar la petición que lanzo un Error
@@ -103,6 +100,7 @@ export class SkyscannerApiClient extends ApiController {
     }
 }
 
+/*
 const query: IQuery = {
     query: {
         market: "UK",
@@ -139,3 +137,4 @@ skyscannerApiClient
         console.error("Error:", error);
     });
 
+*/
