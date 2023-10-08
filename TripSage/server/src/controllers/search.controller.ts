@@ -25,7 +25,7 @@ export class SkyscannerApiClient extends ApiController {
         super();
     }
 
-    @POST
+    @GET
     @Action({ route: "/" })
     public async create(query: IQuery) {
         try {
@@ -62,7 +62,7 @@ export class SkyscannerApiClient extends ApiController {
         }
     }
 
-    @POST
+    @GET
     @Path("/search/:sessionToken")
     @Action({ route: "/search/:sessionToken" })
     public async poll(@PathParam("sessionToken") sessionToken: string) {
@@ -123,18 +123,18 @@ const query: IQuery = {
         ],
         adults: 1,
 
-        cabinClass: "CABIN_CLASS_ECONOMY",
-    },
-};
-const skyscannerApiClient = new SkyscannerApiClient();
+//         cabinClass: "CABIN_CLASS_ECONOMY",
+//     },
+// };
+// const skyscannerApiClient = new SkyscannerApiClient();
 
-skyscannerApiClient
-    .create(query)
-    .then(response => {
-        console.log("Response:", response);
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
+// skyscannerApiClient
+//     .create(query)
+//     .then(response => {
+//         console.log("Response:", response);
+//     })
+//     .catch(error => {
+//         console.error("Error:", error);
+//     });
 
 */

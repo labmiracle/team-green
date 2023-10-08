@@ -1,4 +1,6 @@
-export const productsApiSky = async (query: any) => {
+import { IQuery } from "../../server/src/models/Flight/query";
+
+export const productsApiSky = async (query: IQuery) => {
   try {
     const result = await fetch("http://localhost:5000/api/flights", {
       method: "POST",

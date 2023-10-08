@@ -7,6 +7,7 @@ import Fly from "./Components/Fly/Fly";
 import Home from "./Components/Home/Home";
 import LogIn from "./Components/LogIn-Register/LogIn";
 import ProductList from "./Components/Search/SearchFly";
+import RegistrationUser from "./Components/LogIn-Register/RegistrationUser";
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,13 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/fly" element={<Fly />} />
           <Route path="/logIn" element={<LogIn />} />
+          <Route
+            path="/register"
+            element={
+              <RegistrationUser onCancel={() => {}} onRegister={() => {}} />
+            }
+          />
+
           <Route path="/fligths" element={<ProductList />} />
         </Routes>
         <Footer />

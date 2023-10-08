@@ -55,8 +55,12 @@
       flex-direction: column;
       margin: 10px;
 
-      button {
+      .buttonR2 {
+        text-decoration: none;
+        text-align: center;
+        color: #ffffff;
         background: none;
+        margin-top: 5px;
       }
     }
 

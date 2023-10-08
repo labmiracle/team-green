@@ -77,10 +77,12 @@ function Fly() {
         queryLegs: [
           {
             originPlaceId: {
-              iata: origin,
+              //  iata: origin,
+              iata: "LHR",
             },
             destinationPlaceId: {
-              iata: destination,
+              //  iata: destination,
+              iata: "EDI",
             },
             date: {
               year: parseInt(departureDate.split("-")[0]),
