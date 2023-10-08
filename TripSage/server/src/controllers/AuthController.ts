@@ -5,6 +5,8 @@ import { Configuration } from "../configuration/configuration";
 import { UserRepository } from "../repositories/user.repository";
 import { LoginUser } from "./controllerModels/login";
 import { RegisterUser } from "./controllerModels/register";
+import jwt from "jsonwebtoken"
+import { AuthServices } from "../services/auth.services";
 
 @Path("/api/auth")
 @Tags("Auth")
@@ -12,7 +14,7 @@ import { RegisterUser } from "./controllerModels/register";
 export class AuthController extends ApiController {
     config: Configuration;
 
-    constructor(config: ConfigurationBuilder, private repo: UserRepository) {
+    constructor(config: ConfigurationBuilder, private repo: UserRepository, private service: AuthServices) {
         super();
         this.config = config.build(Configuration);
     }
@@ -20,23 +22,27 @@ export class AuthController extends ApiController {
     @POST
     @Path("/login")
     @Action({ route: "/login", fromBody: true, method: HttpMethod.POST })
-    async login(loginUser: LoginUser): Promise<boolean> {
+    async login(loginUser: LoginUser): Promise<string | undefined> {
         try {
-            const users = await this.repo.find("email = ? AND password = ?", [loginUser.email, loginUser.password]);
+            const valid = await this.service.validateLoginUser(loginUser);
     
-            if (users.length === 1) {
-                return true; // Inicio de sesión válido.
-            } else {
+            if (valid) {
+                const userId = await this.service.getUserId(loginUser.email);
+                const name = await this.service.getUserName(loginUser.email);
 
-                this.httpContext.response.status(401).send("Inicio de sesión no válido");
-                return false; // Inicio de sesión no válido.
+                const token = jwt.sign({ email: loginUser.email, id: userId, name : name }, this.config.jwtSecret);
+                return token;
             }
+
+            // if user not valid return 401
+            this.httpContext.response.sendStatus(401);
         } catch {
- 
-            this.httpContext.response.status(500).send("Error interno del servidor");
-            return false; // Error interno.
+            this.httpContext.response.sendStatus(500);
+
+            return;
         }
     }
+
 
 
     @POST
