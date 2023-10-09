@@ -55,7 +55,6 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
     fetch("http://localhost:3000/api/users/register", requestOptions)
       .then((response) => {
         if (response.status === 201) {
-          // Registro exitoso, no hay datos JSON para analizar
           console.log("User registration successful");
           return;
         }
