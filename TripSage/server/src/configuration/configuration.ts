@@ -1,3 +1,4 @@
+import { Params } from "react-router-dom";
 import { MySqlConfiguration } from "./mysql.configuration";
 
 export class Configuration {
@@ -24,5 +25,6 @@ export class Configuration {
     /** 
     * JWT password 
     */
-   jwtSecret: string;
+   jwtSecret: string = process.env.paradigm_access_token;
+
 }

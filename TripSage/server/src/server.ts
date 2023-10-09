@@ -9,6 +9,7 @@ import { Configuration } from "./configuration/configuration";
 
 import { SkyscannerApiClient } from "./controllers/search.controller";
 import { UserController } from "./controllers/user.controller";
+import { AuthController } from "./controllers/AuthController";
 /**
  * Represents the api server application.
  * It contains the main DI container, the router and express application.
@@ -31,7 +32,7 @@ export class Server extends ApiServer {
             .use(express.json())
             .listen(port, () => this.logger.debug(`Listening on: http://localhost:${port}`));
 
-        this.registerControllers([HealthController, UserController, SkyscannerApiClient]);
+        this.registerControllers([HealthController, UserController, SkyscannerApiClient, AuthController]);
         this.routing.ignoreClosedResponseOnFilters();
         this.routing.registerGlobalFilters([MySqlConnectionFilter]);
     }

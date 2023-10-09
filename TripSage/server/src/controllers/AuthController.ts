@@ -3,11 +3,14 @@ import { POST, Path } from "typescript-rest";
 import { Tags } from "typescript-rest-swagger";
 import { Configuration } from "../configuration/configuration";
 import { UserRepository } from "../repositories/user.repository";
-import { LoginUser } from "./controllerModels/login";
+import { loginUser } from "../models/authuser/login";
 import { RegisterUser } from "./controllerModels/register";
 import jwt from "jsonwebtoken"
 import { AuthServices } from "../services/auth.services";
 
+const options = {
+  expiresIn: '1h', // Optional: Set an expiration time for the token (e.g., 1 hour)
+};
 @Path("/api/auth")
 @Tags("Auth")
 @Controller({ route: "/api/auth" })
@@ -22,24 +25,27 @@ export class AuthController extends ApiController {
     @POST
     @Path("/login")
     @Action({ route: "/login", fromBody: true, method: HttpMethod.POST })
-    async login(loginUser: LoginUser): Promise<string | undefined> {
+    async login(loginUser: loginUser): Promise<void> {
         try {
+            console.log(loginUser)
             const valid = await this.service.validateLoginUser(loginUser);
-    
+            console.log(valid)
             if (valid) {
-                const userId = await this.service.getUserId(loginUser.email);
-                const name = await this.service.getUserName(loginUser.email);
+                const token = jwt.sign( loginUser, this.config.jwtSecret, options);
+    
+                // Configura el encabezado de autorización
+                this.httpContext.response.setHeader("Authorization", `Bearer ${token}`);
 
-                const token = jwt.sign({ email: loginUser.email, id: userId, name : name }, this.config.jwtSecret);
-                return token;
+                console.log(token)
+                // Devuelve el token en el cuerpo de la respuesta JSON
+                this.httpContext.response.status(200).json({ token });
+            } else {
+                // Si el usuario no es válido, devuelve un estado 401 (No autorizado)
+                this.httpContext.response.sendStatus(401);
             }
-
-            // if user not valid return 401
-            this.httpContext.response.sendStatus(401);
         } catch {
+            // Si ocurre una excepción, devuelve un estado 500 (Error interno del servidor)
             this.httpContext.response.sendStatus(500);
-
-            return;
         }
     }
 
