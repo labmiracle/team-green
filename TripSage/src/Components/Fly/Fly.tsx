@@ -200,23 +200,39 @@ function Fly() {
                       <div className="list__container" key={itineraryKey}>
                         <div className="list">
                           <ul className="list__ul">
-                            <h2 className="list__title">
-                              Itinerary ID: {itineraryKey}
-                            </h2>
                             {legIds.map((legId) => {
                               const leg =
                                 searchResults?.content.results.legs[legId];
+                              const price =
+                                itinerary.pricingOptions[0].price.amount;
+                              const priceInNumber = parseFloat(price);
+                              const priceInDecimals = priceInNumber / 100;
+                              const formattedPrice = priceInDecimals.toFixed(2);
+
                               return (
                                 <li key={legId} className="list__li">
                                   <p className="li__text">
-                                    Origen: {leg.originPlaceId}
+                                    Origen:{" "}
+                                    {
+                                      searchResults?.content.results.places[
+                                        leg.originPlaceId
+                                      ].name
+                                    }
                                   </p>
                                   <p className="li__text">
-                                    Destino: {leg.destinationPlaceId}
+                                    Destino:{" "}
+                                    {
+                                      searchResults?.content.results.places[
+                                        leg.destinationPlaceId
+                                      ].name
+                                    }
                                   </p>
                                   <p className="li__text">
                                     Duración del vuelo: {leg.durationInMinutes}{" "}
-                                    - minutos
+                                    minutos
+                                  </p>
+                                  <p className="li__text">
+                                    Precio: ${formattedPrice}
                                   </p>
                                   <Link to={deepLink} target="_blank">
                                     Comprar
