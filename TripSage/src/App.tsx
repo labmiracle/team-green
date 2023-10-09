@@ -6,7 +6,6 @@ import React from "react";
 import Fly from "./Components/Fly/Fly";
 import Home from "./Components/Home/Home";
 import LogIn from "./Components/LogIn-Register/LogIn";
-import ProductList from "./Components/Search/SearchFly";
 import RegistrationUser from "./Components/LogIn-Register/RegistrationUser";
 
 const App: React.FC = () => {
@@ -25,8 +24,6 @@ const App: React.FC = () => {
               <RegistrationUser onCancel={() => {}} onRegister={() => {}} />
             }
           />
-
-          <Route path="/fligths" element={<ProductList sessionToken="" />} />
         </Routes>
         <Footer />
       </BrowserRouter>

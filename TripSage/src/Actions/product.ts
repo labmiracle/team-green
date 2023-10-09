@@ -19,7 +19,7 @@ export const productsApiSky = async (query: IQuery) => {
     console.log("el query es: ", query);
     console.log("data en productsApiSky es : ", data);
 
-    return data; // Devolver los datos obtenidos
+    return data;
   } catch (error) {
     console.error("Error al realizar la búsqueda:", error);
     throw error;
@@ -36,6 +36,7 @@ export const skyscannerApiSearch = async (
         method: "POST",
       }
     ).then((response: any) => {
+      console.log(result);
       console.log("el session token en skyscannerApiSearch es: ", sessionToken);
       console.log("response en skyscannerApiSearch es : ", response);
       const data = response.data;

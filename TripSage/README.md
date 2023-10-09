@@ -1,27 +1,66 @@
-# React + TypeScript + Vite
+# TripSage
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduccion:
 
-Currently, two official plugins are available:
+TripSage es un sistema de recomendacion para viajes. El objetivo del proyecto es crear una plataforma que permita a los usuarios poder buscar un destino, y que te salgan ofertas de pasajes con el menor tiempo de viaje posible, y a un precio accesible.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Documentacion
 
-## Expanding the ESLint configuration
+- Esta es la documentacion de la API que se utilizo en el proyecto
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```
+https://developers.skyscanner.net/docs/intro
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Documentacion del proyecto:
+
+```
+https://docs.google.com/document/d/1yygidWt2vLYsxaTq2ke6kwjLO7E8u4bthrjZXeGZohI/edit
+```
+
+### Como correr el proyecto
+
+1. Una ves ya clonado el repo con el siguiente comando
+
+```
+git clone https://github.com/labmiracle/team-green
+```
+
+2. En el Back que se encuentra en la carpeta server, crear un archivo llamado .env
+
+- paradigm_api**mysql**host = <nombre_del_host>
+- paradigm_api**mysql**user = <usuario_mysql>
+- paradigm_api**mysql**password = <password_usuario_mysql>
+- paradigm_api**mysql**database = <nombre_base_de_datos>
+- paradigm_api**mysql**port=<puerto_base_de_datos>
+- paradigm_api**sendmail**key=<nodemailer_key>
+
+3. En el Front tendras que instalar las dependencias con el siguiente comando:
+
+```
+npm install
+```
+
+4. Deberas correr el programa tanto como en el Front como en el Back con:
+
+```
+npm run dev
+```
+
+### Librerias que se utilizaron
+
+- [SCSS](https://sass-lang.com/documentation/)
+- [react-router-dom](https://www.npmjs.com/package/react-router-dom)
+- [react-icons](https://react-icons.github.io/react-icons/)
+- [AXIOS](https://axios-http.com/es/docs/intro)
+- [Paradigm](https://www.paradigm.net.co/index.html)
+- [JWT](https://jwt.io/libraries)
+
+## Integrantes
+
+|      Name       |            Mail             | Github                                                                    |
+| :-------------: | :-------------------------: | :------------------------------------------------------------------------ |
+| Francisco Crema |    francrema00@gmail.com    | [@FranciscoCrema](https://www.linkedin.com/in/franciscocrema/)            |
+| Eugenio Barroso |      eugeasc@gmail.com      | [@EugenioBarroso](https://www.linkedin.com/in/eugenio-barroso-0a8244218/) |
+|  Lucas Becerra  |  becerralucas40@gmail.com   | [@LucasBecerra](https://www.linkedin.com/in/lucasbecerra27)               |
+| Giovana Dipaolo | giovannadipaolo39@gmail.com | [@GiovanaDipaolo](https://www.linkedin.com/in/giovannadipaolo/)           |

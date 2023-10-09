@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { productsApiSky } from "../../Actions/product";
-import QueryParams from "./QueryParams";
 import "./fly.scss";
-import { ProductList } from "../Search/SearchFly";
+import { skyscannerApiSearch } from "../../Actions/product";
+import "../Search/SearchFly.scss";
+import "../Search/loader.scss";
+import geo from "../Search/data/geo.json";
 import { IQuery } from "../../../server/src/models/Flight/query";
 import { IFlight } from "../../../server/src/models/Flight/Flight";
-import geo from "../Search/data/geo.json";
 
 function Fly() {
   const [isSearching, setIsSearching] = useState(false);
@@ -16,6 +17,8 @@ function Fly() {
   const [returnDate, setReturnDate] = useState("");
   const [searchResults, setSearchResults] = useState<IFlight | null>(null);
   const [sessionTokenP, setSessionTokenP] = useState<string>("");
+  const [showLoader, setShowLoader] = useState(true);
+
   const places: PlacesData = geo;
 
   interface Place {
@@ -36,7 +39,6 @@ function Fly() {
   }
 
   const handleOriginChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event.target.value);
     setOrigin(event.target.value);
   };
 
@@ -58,8 +60,6 @@ function Fly() {
     setReturnDate(event.target.value);
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -75,11 +75,11 @@ function Fly() {
         queryLegs: [
           {
             originPlaceId: {
-              //  iata: origin,
+              // iata: origin,
               iata: "LHR",
             },
             destinationPlaceId: {
-              //  iata: destination,
+              // iata: destination,
               iata: "EDI",
             },
             date: {
@@ -96,17 +96,32 @@ function Fly() {
 
     try {
       const response = await productsApiSky(query);
-      const responseData = await response.json();
-      setSessionTokenP(responseData.sessionToken);
-      setSearchResults(responseData);
+      setSessionTokenP(response.sessionToken);
+      setSearchResults(response);
       console.log("Respuesta de la búsqueda:", response);
     } catch (error) {
       console.error("Error al realizar la búsqueda:", error);
     } finally {
       setIsSearching(false);
-      navigate("/fligths");
+      setShowLoader(false);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await skyscannerApiSearch(sessionTokenP);
+        const data = JSON.parse(response);
+        setSearchResults(data.content.results);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (sessionTokenP) {
+      fetchData();
+    }
+  }, [sessionTokenP]);
 
   return (
     <div id="container-fly">
@@ -167,8 +182,61 @@ function Fly() {
               Buscar
             </button>
           </form>
-          {sessionTokenP && <ProductList sessionToken={sessionTokenP} />}
-          {searchResults && <Link to="/fligths">Ver resultados</Link>}
+          {searchResults && (
+            <div className="product-list">
+              <h1>Detalles del Vuelo</h1>
+              {searchResults?.content?.results?.itineraries &&
+                Object.keys(searchResults.content.results.itineraries).map(
+                  (itineraryKey) => {
+                    const itinerary =
+                      searchResults.content.results.itineraries[itineraryKey];
+                    const legIds = itinerary.legIds;
+                    const deepLink =
+                      itinerary.pricingOptions[0]?.items[0]?.deepLink;
+                    console.log("Itinerary ID:", itineraryKey);
+                    console.log("Leg IDs:", legIds);
+                    console.log("Deep Link:", deepLink);
+
+                    return (
+                      <div className="list__container" key={itineraryKey}>
+                        <div className="list">
+                          <ul className="list__ul">
+                            <h2 className="list__title">
+                              Itinerary ID: {itineraryKey}
+                            </h2>
+                            {legIds.map((legId) => {
+                              const leg =
+                                searchResults?.content.results.legs[legId];
+                              return (
+                                <li key={legId} className="list__li">
+                                  <p className="li__text">
+                                    Origen: {leg.originPlaceId}
+                                  </p>
+                                  <p className="li__text">
+                                    Destino: {leg.destinationPlaceId}
+                                  </p>
+                                  <p className="li__text">
+                                    Duración del vuelo: {leg.durationInMinutes}{" "}
+                                    - minutos
+                                  </p>
+                                  <Link
+                                    to={deepLink}
+                                    target="_blank"
+                                    className="list__button"
+                                  >
+                                    Comprar
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+            </div>
+          )}
         </div>
       </main>
     </div>
