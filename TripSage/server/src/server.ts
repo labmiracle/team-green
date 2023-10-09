@@ -31,9 +31,8 @@ export class Server extends ApiServer {
             .use(express.json())
             .listen(port, () => this.logger.debug(`Listening on: http://localhost:${port}`));
 
-        this.registerControllers([HealthController, UserController, SkyscannerApiClient]);
+        this.registerControllers([HealthController, SkyscannerApiClient, UserController]);
         this.routing.ignoreClosedResponseOnFilters();
         this.routing.registerGlobalFilters([MySqlConnectionFilter]);
     }
 }
-

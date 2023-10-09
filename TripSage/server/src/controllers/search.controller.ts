@@ -5,6 +5,7 @@ import { InsertionResult } from "../core/repositories/commands/db.command";
 import path from "path";
 import { Headers } from "node-fetch";
 import { IQuery } from "../models/Flight/query";
+import { Flight } from "../models/Flight/Flight";
 import { HttpHeaders } from "@miracledevs/paradigm-web-fetch";
 import { Axios } from "axios";
 import { get } from "https";
@@ -26,28 +27,33 @@ export class SkyscannerApiClient extends ApiController {
     }
 
     @POST
+    @Response<string>(500, "Internal Server error")
     @Action({ route: "/", fromBody: true, method: HttpMethod.POST })
-    public async create(query: IQuery) {
+    public async postcreate(query: IQuery): Promise<Flight> {
         try {
+            console.log("este es el query adentro de postcreate: ", query);
             const response = await axiosI
                 .post(`/v3/flights/live/search/create`, query, {
                     method: "POST",
                     headers: {
                         "x-api-key": "sh428739766321522266746152871799",
                     },
-                    data: { query },
+                    //data: { query },
                 })
                 .then((response: any) => {
                     //response.json(response.data);
-                    console.log(JSON.stringify(response.data));
+                    console.log(response.data);
+                    const data = response.data;
                     //const search = SkyscannerApiClient.poll(response.data.sessionToken);
-                    return JSON.stringify(response.data);
+                    return this.httpContext.response.json(data);
                 });
         } catch (error) {
             if (error.response) {
                 console.log("El error es:", error.response.data);
                 console.log("El error es:", error.response.status);
                 console.log("El error es:", error.response.headers);
+                this.httpContext.response.sendStatus(500);
+                return;
                 //response.status(500).json({ error: "Error en la llamada" });
             } else if (error.request) {
                 // La petición fue hecha pero no se recibió respuesta
@@ -64,7 +70,7 @@ export class SkyscannerApiClient extends ApiController {
 
     @POST
     @Path("/search/:sessionToken")
-    @Action({ route: "/search/:sessionToken", fromBody: true, method: HttpMethod.POST })
+    @Action({ route: "/search/:sessionToken", method: HttpMethod.POST })
     public async poll(@PathParam("sessionToken") sessionToken: string) {
         try {
             axiosI.defaults.headers.common["x-api-key"] = this.apiKey;
@@ -81,7 +87,8 @@ export class SkyscannerApiClient extends ApiController {
                 })*/
                 .then((response: any) => {
                     console.log("Datos de vuelos:", response.data);
-                    return response.data;
+                    const data = response.data;
+                    return this.httpContext.response.json(data);
                     //    return (response = JSON.stringify(response.data));
                 });
         } catch (error) {
@@ -123,19 +130,18 @@ const query: IQuery = {
         ],
         adults: 1,
 
-//         cabinClass: "CABIN_CLASS_ECONOMY",
-//     },
-// };
-// const skyscannerApiClient = new SkyscannerApiClient();
+        cabinClass: "CABIN_CLASS_ECONOMY",
+    },
+};
+const skyscannerApiClient = new SkyscannerApiClient();
 
-// skyscannerApiClient
-//     .create(query)
-//     .then(response => {
-//         console.log("Response:", response);
-//     })
-//     .catch(error => {
-//         console.error("Error:", error);
-//     });
+skyscannerApiClient
+    .create(query)
+    .then(response => {
+        console.log("Response:", response);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
 
 */
-
