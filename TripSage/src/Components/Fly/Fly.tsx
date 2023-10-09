@@ -9,7 +9,7 @@ import { IFlight } from "../../../server/src/models/Flight/Flight";
 import geo from "../Search/data/geo.json";
 
 function Fly() {
-  const [searchProd, setSearchProd] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
@@ -60,14 +60,12 @@ function Fly() {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (searchProd) {
-  //     navigate("/fligths");
-  //   }
-  // }, [searchProd, navigate]);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSearching) {
+      return;
+    }
 
     const query: IQuery = {
       query: {
@@ -97,15 +95,16 @@ function Fly() {
     };
 
     try {
-      // Llamar a la función productsApiSky con los parámetros de consulta
       const response = await productsApiSky(query);
-      setSessionTokenP(response.sessionToken);
-      setSearchResults(response);
-      setSearchProd(true);
+      const responseData = await response.json();
+      setSessionTokenP(responseData.sessionToken);
+      setSearchResults(responseData);
       console.log("Respuesta de la búsqueda:", response);
-      navigate("/fligths");
     } catch (error) {
       console.error("Error al realizar la búsqueda:", error);
+    } finally {
+      setIsSearching(false);
+      navigate("/fligths");
     }
   };
 
@@ -164,7 +163,9 @@ function Fly() {
               />
             </label>
             <br />
-            <button type="submit">Buscar</button>
+            <button type="submit" disabled={isSearching}>
+              Buscar
+            </button>
           </form>
           {sessionTokenP && <ProductList sessionToken={sessionTokenP} />}
           {searchResults && <Link to="/fligths">Ver resultados</Link>}

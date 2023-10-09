@@ -18,37 +18,21 @@ export function ProductList(sessionToken: { sessionToken: string }) {
     return () => clearTimeout(timeout);
   }, []);
 
-  // useEffect(() => {
-  //   // Verifica si tienes resultados reales (después de hacer la llamada a la API)
-  //   if (searchResults) {
-  //     setFlightData(searchResults);
-  //     setShowLoader(false);
-  //   }
-  // }, [searchResults]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await skyscannerApiSearch(sessionToken.sessionToken);
+        const data = JSON.parse(response);
+        setFlightData(data.content.results);
+        setShowLoader(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  //  useEffect(() => {
-  console.log(sessionToken);
-  const fetchData = async () => {
-    try {
-      // Llamar a la función productsApiSky para obtener datos reales
-      //const queries = QueryParams();
-      //queries.map((query) => productsApiSky(query))
-      const response = await skyscannerApiSearch(sessionToken.sessionToken);
+    fetchData();
+  }, []);
 
-      // Obtener los datos de la última respuesta de la API (puedes ajustar esto según tus necesidades)
-      //const data = responses[responses.length - 1];
-
-      console.log("Datos de la API:", response);
-      //const response = ProductosJson;
-      const data = JSON.parse(response);
-      console.log("Datos del mock", data);
-      setFlightData(data.content.results);
-      setShowLoader(true);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  fetchData();
   return (
     <div className="product-list">
       {showLoader && (
@@ -61,14 +45,17 @@ export function ProductList(sessionToken: { sessionToken: string }) {
         <>
           <h1>Detalles del Vuelo</h1>
           {flightData?.content?.results?.itineraries &&
-            Object.keys(flightData.content.results.itineraries)
-              .slice(0, 10)
-              .map((itineraryKey) => {
+            Object.keys(flightData.content.results.itineraries).map(
+              (itineraryKey) => {
                 const itinerary =
                   flightData.content.results.itineraries[itineraryKey];
                 const legIds = itinerary.legIds;
                 const deepLink =
                   itinerary.pricingOptions[0]?.items[0]?.deepLink;
+                console.log("Itinerary ID:", itineraryKey);
+                console.log("Leg IDs:", legIds);
+                console.log("Deep Link:", deepLink);
+
                 return (
                   <div className="list__container">
                     <div key={itineraryKey} className="list">
@@ -104,7 +91,8 @@ export function ProductList(sessionToken: { sessionToken: string }) {
                     </div>
                   </div>
                 );
-              })}
+              }
+            )}
         </>
       )}
     </div>
