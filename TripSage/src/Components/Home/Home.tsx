@@ -1,5 +1,4 @@
 import CarouselSlider from "../SliderHome/CarouselSlider";
-import "./Home.scss";
 
 function Home() {
   return (

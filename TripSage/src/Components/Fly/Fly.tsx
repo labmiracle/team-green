@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { productsApiSky } from "../../Actions/product";
 import "./fly.scss";
 import { skyscannerApiSearch } from "../../Actions/product";
-import "../Search/SearchFly.scss";
-import "../Search/loader.scss";
-import geo from "../Search/data/geo.json";
+import "./loader.scss";
+import geo from "./data/geo.json";
 import { IQuery } from "../../../server/src/models/Flight/query";
 import { IFlight } from "../../../server/src/models/Flight/Flight";
 
@@ -17,7 +16,7 @@ function Fly() {
   const [returnDate, setReturnDate] = useState("");
   const [searchResults, setSearchResults] = useState<IFlight | null>(null);
   const [sessionTokenP, setSessionTokenP] = useState<string>("");
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
 
   const places: PlacesData = geo;
 
@@ -67,6 +66,8 @@ function Fly() {
       return;
     }
 
+    setShowLoader(true);
+
     const query: IQuery = {
       query: {
         market: "AR",
@@ -75,12 +76,12 @@ function Fly() {
         queryLegs: [
           {
             originPlaceId: {
-              // iata: origin,
-              iata: "LHR",
+              iata: origin,
+              // iata: "LHR",
             },
             destinationPlaceId: {
-              // iata: destination,
-              iata: "EDI",
+              iata: destination,
+              // iata: "EDI",
             },
             date: {
               year: parseInt(departureDate.split("-")[0]),
@@ -182,6 +183,7 @@ function Fly() {
               Buscar
             </button>
           </form>
+          {showLoader && <div className="loader"></div>}
           {searchResults && (
             <div className="product-list">
               <h1>Detalles del Vuelo</h1>
@@ -193,9 +195,6 @@ function Fly() {
                     const legIds = itinerary.legIds;
                     const deepLink =
                       itinerary.pricingOptions[0]?.items[0]?.deepLink;
-                    console.log("Itinerary ID:", itineraryKey);
-                    console.log("Leg IDs:", legIds);
-                    console.log("Deep Link:", deepLink);
 
                     return (
                       <div className="list__container" key={itineraryKey}>
@@ -219,11 +218,7 @@ function Fly() {
                                     Duración del vuelo: {leg.durationInMinutes}{" "}
                                     - minutos
                                   </p>
-                                  <Link
-                                    to={deepLink}
-                                    target="_blank"
-                                    className="list__button"
-                                  >
+                                  <Link to={deepLink} target="_blank">
                                     Comprar
                                   </Link>
                                 </li>

@@ -1,5 +1,5 @@
 import { Action, ApiController, Controller, HttpMethod } from "@miracledevs/paradigm-express-webapi";
-import { User } from "../models/users/user";
+import { User } from "../models/users/User";
 import { UserRepository } from "../repositories/user.repository";
 import { Path, PathParam, GET, POST, DELETE, PUT, Security } from "typescript-rest";
 import { Response, Tags } from "typescript-rest-swagger";
@@ -56,35 +56,3 @@ export class UserController extends ApiController {
         }
     }
 }
-
-/*
-
-@ApiPath({
-  path: "/users",
-  name: "User",
-})
-@Tags("Users")
-@Controller("/users")
-export class UserController extends ApiController {
-  constructor(private userRepository: UserRepository) {
-    super();
-  }
-
-  @Path("/")
-  @POST
-  @Response<InsertionResult<User>>(201, "User Created")
-  async createUser(user: User): Promise<InsertionResult<User>> {
-    const newUser = await this.userRepository.createUser(user);
-    return { insertId: newUser.id };
-  }
-
-  @Path("/:id")
-  @GET
-  async getUserById(@PathParam("id") id: number): Promise<User | undefined> {
-    const user = await this.userRepository.getUserById(id);
-    if (!user) {
-      this.notFound("User not found");
-    }
-    return user;
-  }
-}*/
