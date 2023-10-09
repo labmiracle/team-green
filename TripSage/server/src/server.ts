@@ -37,4 +37,3 @@ export class Server extends ApiServer {
         this.routing.registerGlobalFilters([MySqlConnectionFilter]);
     }
 }
-

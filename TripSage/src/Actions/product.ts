@@ -2,26 +2,33 @@ import { IQuery } from "../../server/src/models/Flight/query";
 
 export const productsApiSky = async (query: IQuery) => {
   try {
-    const result = await fetch("http://localhost:3000/api/flights", {
+    const response = await fetch("http://localhost:3000/api/flights", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(query),
     });
-    console.log("el query es: ", query);
-    if (!result.ok) {
-      throw new Error(`HTTP error! Status: ${result.status}`);
+
+    if (!response.ok) {
+      throw new Error("La solicitud no fue exitosa");
     }
-    console.log(result);
-    return result;
+
+    const data = await response.json();
+
+    console.log("el query es: ", query);
+    console.log("data en productsApiSky es : ", data);
+
+    return data;
   } catch (error) {
     console.error("Error al realizar la búsqueda:", error);
     throw error;
   }
 };
 
-export const skyscannerApiSearch = async (sessionToken: string) => {
+export const skyscannerApiSearch = async (
+  sessionToken: string
+): Promise<any> => {
   try {
     const result = await fetch(
       `http://localhost:3000/api/flights/search/${sessionToken}`,
@@ -29,10 +36,12 @@ export const skyscannerApiSearch = async (sessionToken: string) => {
         method: "POST",
       }
     ).then((response: any) => {
-      console.log("Datos de busqueda: ", response.data);
-      return JSON.parse(response.data);
+      console.log(result);
+      console.log("el session token en skyscannerApiSearch es: ", sessionToken);
+      console.log("response en skyscannerApiSearch es : ", response);
+      const data = response.data;
+      return data;
     });
-    return result;
   } catch (error) {
     console.error("Error al realizar la búsqueda:", error);
     throw error;

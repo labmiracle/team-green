@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { productsApiSky } from "../../Actions/product";
-import QueryParams from "./QueryParams";
 import "./fly.scss";
-import { ProductList } from "../Search/SearchFly";
+import { skyscannerApiSearch } from "../../Actions/product";
+import "./loader.scss";
+import geo from "./data/geo.json";
 import { IQuery } from "../../../server/src/models/Flight/query";
 import { IFlight } from "../../../server/src/models/Flight/Flight";
-import geo from "../Search/data/geo.json";
 
 function Fly() {
-  const [searchProd, setSearchProd] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [searchResults, setSearchResults] = useState<IFlight | null>(null);
   const [sessionTokenP, setSessionTokenP] = useState<string>("");
+  const [showLoader, setShowLoader] = useState(false);
+
   const places: PlacesData = geo;
 
   interface Place {
@@ -36,7 +38,6 @@ function Fly() {
   }
 
   const handleOriginChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event.target.value);
     setOrigin(event.target.value);
   };
 
@@ -58,16 +59,14 @@ function Fly() {
     setReturnDate(event.target.value);
   };
 
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (searchProd) {
-  //     navigate("/fligths");
-  //   }
-  // }, [searchProd, navigate]);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSearching) {
+      return;
+    }
+
+    setShowLoader(true);
 
     const query: IQuery = {
       query: {
@@ -77,12 +76,12 @@ function Fly() {
         queryLegs: [
           {
             originPlaceId: {
-              //  iata: origin,
-              iata: "LHR",
+              iata: origin,
+              // iata: "LHR",
             },
             destinationPlaceId: {
-              //  iata: destination,
-              iata: "EDI",
+              iata: destination,
+              // iata: "EDI",
             },
             date: {
               year: parseInt(departureDate.split("-")[0]),
@@ -97,17 +96,33 @@ function Fly() {
     };
 
     try {
-      // Llamar a la función productsApiSky con los parámetros de consulta
       const response = await productsApiSky(query);
       setSessionTokenP(response.sessionToken);
       setSearchResults(response);
-      setSearchProd(true);
       console.log("Respuesta de la búsqueda:", response);
-      navigate("/fligths");
     } catch (error) {
       console.error("Error al realizar la búsqueda:", error);
+    } finally {
+      setIsSearching(false);
+      setShowLoader(false);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await skyscannerApiSearch(sessionTokenP);
+        const data = JSON.parse(response);
+        setSearchResults(data.content.results);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (sessionTokenP) {
+      fetchData();
+    }
+  }, [sessionTokenP]);
 
   return (
     <div id="container-fly">
@@ -164,10 +179,75 @@ function Fly() {
               />
             </label>
             <br />
-            <button type="submit">Buscar</button>
+            <button type="submit" disabled={isSearching}>
+              Buscar
+            </button>
           </form>
-          {sessionTokenP && <ProductList sessionToken={sessionTokenP} />}
-          {searchResults && <Link to="/fligths">Ver resultados</Link>}
+          {showLoader && <div className="loader"></div>}
+          {searchResults && (
+            <div className="product-list">
+              <h1>Detalles del Vuelo</h1>
+              {searchResults?.content?.results?.itineraries &&
+                Object.keys(searchResults.content.results.itineraries).map(
+                  (itineraryKey) => {
+                    const itinerary =
+                      searchResults.content.results.itineraries[itineraryKey];
+                    const legIds = itinerary.legIds;
+                    const deepLink =
+                      itinerary.pricingOptions[0]?.items[0]?.deepLink;
+
+                    return (
+                      <div className="list__container" key={itineraryKey}>
+                        <div className="list">
+                          <ul className="list__ul">
+                            {legIds.map((legId) => {
+                              const leg =
+                                searchResults?.content.results.legs[legId];
+                              const price =
+                                itinerary.pricingOptions[0].price.amount;
+                              const priceInNumber = parseFloat(price);
+                              const priceInDecimals = priceInNumber / 100;
+                              const formattedPrice = priceInDecimals.toFixed(2);
+
+                              return (
+                                <li key={legId} className="list__li">
+                                  <p className="li__text">
+                                    Origen:{" "}
+                                    {
+                                      searchResults?.content.results.places[
+                                        leg.originPlaceId
+                                      ].name
+                                    }
+                                  </p>
+                                  <p className="li__text">
+                                    Destino:{" "}
+                                    {
+                                      searchResults?.content.results.places[
+                                        leg.destinationPlaceId
+                                      ].name
+                                    }
+                                  </p>
+                                  <p className="li__text">
+                                    Duración del vuelo: {leg.durationInMinutes}{" "}
+                                    minutos
+                                  </p>
+                                  <p className="li__text">
+                                    Precio: ${formattedPrice}
+                                  </p>
+                                  <Link to={deepLink} target="_blank">
+                                    Comprar
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      </div>
+                    );
+                  }
+                )}
+            </div>
+          )}
         </div>
       </main>
     </div>
