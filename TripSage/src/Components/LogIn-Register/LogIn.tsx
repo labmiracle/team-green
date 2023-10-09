@@ -1,19 +1,32 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.scss";
+import { login } from "../../Actions/user";
 
 const LogIn = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [passwordHash, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (email === "" || password === "") {
+  const handleLogin = async () => {
+    if (email === "" || passwordHash === "") {
       setError("Por favor, complete todos los campos.");
+      return; // Salir de la función si faltan campos
     } else {
-      alert("Inicio sesion correctamente");
-      navigate("/");
+      try {
+        const response = await login({email, passwordHash});
+        console.log("dadsafasdfasd",response)
+        if (response) {
+          alert ("Inicio sesión correctamente")
+          navigate ("/") 
+        } else {
+          alert ("Usuario Inexistente")
+        }
+
+      } catch (error) {
+        console.error("Error al realizar la búsqueda:", error);
+      } 
     }
   };
 
@@ -35,7 +48,7 @@ const LogIn = () => {
             <label>Contraseña:</label>
             <input
               type="password"
-              value={password}
+              value={passwordHash}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>

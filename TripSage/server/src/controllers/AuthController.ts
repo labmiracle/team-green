@@ -25,7 +25,7 @@ export class AuthController extends ApiController {
     @POST
     @Path("/login")
     @Action({ route: "/login", fromBody: true, method: HttpMethod.POST })
-    async login(loginUser: loginUser): Promise<void> {
+    async login(loginUser: loginUser): Promise<boolean> {
         try {
             console.log(loginUser)
             const valid = await this.service.validateLoginUser(loginUser);
@@ -35,11 +35,12 @@ export class AuthController extends ApiController {
     
                 // Configura el encabezado de autorización
                 this.httpContext.response.setHeader("Authorization", `Bearer ${token}`);
-
+                
                 console.log(token)
                 // Devuelve el token en el cuerpo de la respuesta JSON
                 this.httpContext.response.status(200).json({ token });
-            } else {
+                return true
+            } else { 
                 // Si el usuario no es válido, devuelve un estado 401 (No autorizado)
                 this.httpContext.response.sendStatus(401);
             }

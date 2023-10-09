@@ -1,6 +1,5 @@
 import { DependencyLifeTime, Injectable } from "@miracledevs/paradigm-web-di";
 import { UserRepository } from "../repositories/user.repository";
-import bcrypt from "bcrypt";
 import { loginUser } from "../models/authuser/login";
 
 @Injectable({ lifeTime: DependencyLifeTime.Scoped })
