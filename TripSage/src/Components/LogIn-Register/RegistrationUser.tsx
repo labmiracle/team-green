@@ -20,7 +20,7 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
 }) => {
   const handleCancelRegistration = () => {
     onCancel();
-    navigate("/logIn"); // Redirigir de vuelta a la página de inicio de sesión al cancelar el registro.
+    navigate("/logIn");
   };
   const navigate = useNavigate();
 
@@ -44,53 +44,30 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
       return;
     }
 
-    // Simulamos un registro exitoso
-    console.log("Simulando registro exitoso:", userData);
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    };
 
-    // Redirigir al usuario al inicio de sesión
+    fetch("http://localhost:3000/api/users/register", requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("User registration successful:", data);
+      })
+      .catch((error) => {
+        console.error("Error registering user:", error);
+      });
+    onRegister(userData);
     navigate("/logIn");
   };
-
-  // const handleRegister = () => {
-  //   if (userData.password !== confirmPassword) {
-  //     alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
-  //     return;
-  //   }
-
-  //   if (userData.password.length < 6) {
-  //     alert("La contraseña debe tener al menos 6 caracteres.");
-  //     return;
-  //   }
-
-  //   const requestOptions = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(userData),
-  //   };
-
-  //   // Make the POST request to the registration API endpoint
-  //   fetch("api/users/register", requestOptions)
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       return response.json(); // Parse the JSON response
-  //     })
-  //     .then((data) => {
-  //       // Handle the successful registration response here
-  //       console.log("User registration successful:", data);
-  //       // You can perform any additional actions or navigation as needed
-  //       onRegister(userData);
-  //       navigate("/logIn"); // Redirige a "/logIn" después del registro exitoso
-  //     })
-  //     .catch((error) => {
-  //       // Handle errors
-  //       console.error("Error registering user:", error);
-  //       // Display an error message to the user or take appropriate action
-  //     });
-  // };
 
   return (
     <div id="container-registro">

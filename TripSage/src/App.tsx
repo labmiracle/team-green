@@ -26,7 +26,7 @@ const App: React.FC = () => {
             }
           />
 
-          <Route path="/fligths" element={<ProductList />} />
+          <Route path="/fligths" element={<ProductList sessionToken="" />} />
         </Routes>
         <Footer />
       </BrowserRouter>

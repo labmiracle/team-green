@@ -27,6 +27,7 @@ export function ProductList(sessionToken: { sessionToken: string }) {
   // }, [searchResults]);
 
   //  useEffect(() => {
+  console.log(sessionToken);
   const fetchData = async () => {
     try {
       // Llamar a la función productsApiSky para obtener datos reales
@@ -47,7 +48,7 @@ export function ProductList(sessionToken: { sessionToken: string }) {
       console.error("Error fetching data:", error);
     }
   };
-  //  });
+  fetchData();
   return (
     <div className="product-list">
       {showLoader && (
@@ -109,5 +110,4 @@ export function ProductList(sessionToken: { sessionToken: string }) {
     </div>
   );
 }
-
 export default ProductList;

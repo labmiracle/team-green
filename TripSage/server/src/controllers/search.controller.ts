@@ -25,13 +25,13 @@ export class SkyscannerApiClient extends ApiController {
         super();
     }
 
-    @GET
-    @Action({ route: "/" })
+    @POST
+    @Action({ route: "/", fromBody: true, method: HttpMethod.POST })
     public async create(query: IQuery) {
         try {
             const response = await axiosI
                 .post(`/v3/flights/live/search/create`, query, {
-                    method: "post",
+                    method: "POST",
                     headers: {
                         "x-api-key": "sh428739766321522266746152871799",
                     },
@@ -62,9 +62,9 @@ export class SkyscannerApiClient extends ApiController {
         }
     }
 
-    @GET
+    @POST
     @Path("/search/:sessionToken")
-    @Action({ route: "/search/:sessionToken" })
+    @Action({ route: "/search/:sessionToken", fromBody: true, method: HttpMethod.POST })
     public async poll(@PathParam("sessionToken") sessionToken: string) {
         try {
             axiosI.defaults.headers.common["x-api-key"] = this.apiKey;
@@ -138,3 +138,4 @@ const query: IQuery = {
 //     });
 
 */
+

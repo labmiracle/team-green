@@ -2,7 +2,7 @@ import { IQuery } from "../../server/src/models/Flight/query";
 
 export const productsApiSky = async (query: IQuery) => {
   try {
-    const result = await fetch("http://localhost:5000/api/flights", {
+    const result = await fetch("http://localhost:3000/api/flights", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,8 +13,8 @@ export const productsApiSky = async (query: IQuery) => {
     if (!result.ok) {
       throw new Error(`HTTP error! Status: ${result.status}`);
     }
-
-    return result.json();
+    console.log(result);
+    return result;
   } catch (error) {
     console.error("Error al realizar la búsqueda:", error);
     throw error;
@@ -24,7 +24,7 @@ export const productsApiSky = async (query: IQuery) => {
 export const skyscannerApiSearch = async (sessionToken: string) => {
   try {
     const result = await fetch(
-      `http://localhost:5000/api/flights/search/${sessionToken}`,
+      `http://localhost:3000/api/flights/search/${sessionToken}`,
       {
         method: "POST",
       }

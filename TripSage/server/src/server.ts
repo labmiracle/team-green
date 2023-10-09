@@ -20,7 +20,7 @@ export class Server extends ApiServer {
     protected configureApplication(): void {
         this.logger.debug("Configuring application...");
         const configuration = this.configurationBuilder.build(Configuration);
-        const port = configuration.port || process.env.PORT || 5000;
+        const port = configuration.port || process.env.PORT || 3000;
 
         this.expressApplication
             .disable("etag")
