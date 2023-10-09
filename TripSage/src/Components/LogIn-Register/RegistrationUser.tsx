@@ -54,17 +54,27 @@ const RegistrationUser: React.FC<RegistrationUserProps> = ({
 
     fetch("http://localhost:3000/api/users/register", requestOptions)
       .then((response) => {
+        if (response.status === 201) {
+          // Registro exitoso, no hay datos JSON para analizar
+          console.log("User registration successful");
+          return;
+        }
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+
         return response.json();
       })
       .then((data) => {
-        console.log("User registration successful:", data);
+        if (data) {
+          console.log("User registration successful:", data);
+        }
       })
       .catch((error) => {
         console.error("Error registering user:", error);
       });
+
     onRegister(userData);
     navigate("/logIn");
   };
